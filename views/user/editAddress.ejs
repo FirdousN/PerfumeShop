@@ -1,0 +1,134 @@
+<%- include ('../layouts/head.ejs') -%>
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('/static/user-assets/images/backgrounds/bg-1.jpg')">
+        <div class="container">
+            <h1 class="page-title">My Account<span>Shop</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                <li class="breadcrumb-item"><a href="/dashboard">My Account</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Address</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="dashboard">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-lg-9">
+                        <div class="tab-content">
+                            <form action="/editAddress" method ="post" onsubmit = "return validationChecking()">
+                                <input type="hidden" name="address_id" value="<%= address._id %>">
+                                <% console.log('Addressid:', address._id) %>
+                                <div class="row">
+                                    <div class="col-sm-12" style="margin-left: 180px;">
+                                        <label> HouseName *</label>
+                                        <input type="text" class="form-control" name="houseName"  id="houseName" value="<%= address.houseName %>">
+                                        <div id="errorhouseName" class="ms-2 text-danger"></div>
+
+                                        <label> Street *</label>
+                                        <input type="text" class="form-control" name="street" id="street" value="<%= address.street %>">
+                                        <div id="errorstreet" class="ms-2 text-danger"></div>
+
+                                        <label> City *</label>
+                                        <input type="text" class="form-control" name="city" id="city" value="<%= address.city %>">
+                                        <div id="errorcity" class="ms-2 text-danger"></div>
+
+                                        <label>State *</label>
+                                        <input type="text" id="state" name="state" class="form-control"  value="<%= address.state %>">
+                                        <div id="errorstate" class="ms-2 text-danger"></div>
+
+                                        <label>Pincode *</label>
+                                        <input type="text" id="pincode" name="pincode" class="form-control mb-2" value="<%= address.pincode %>">
+                                        <div id="errorpincode" class="ms-2 text-danger"></div>
+
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>SAVE CHANGES</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+                            </form>
+                        </div>
+                    </div><!-- End .col-lg-9 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .dashboard -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+   
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+  const houseName = document.getElementById("houseName");
+  const errorhouseName = document.getElementById("errorhouseName");
+  const street = document.getElementById("street");
+  const errorstreet = document.getElementById("errorstreet");
+  const city = document.getElementById("city");
+  const errorcity = document.getElementById("errorcity");
+  const state = document.getElementById("state");
+  const errorstate = document.getElementById("errorstate");
+  const pincode = document.getElementById("pincode");
+  const errorpincode = document.getElementById("errorpincode");
+
+  houseName.addEventListener('input', function () {
+    errorhouseName.innerHTML = houseName.value.trim() === "" ? "Please enter home name" : /^[a-zA-Z ]+$/.test(houseName.value) == false ? "Please enter alphabets only" : "";
+  });
+  street.addEventListener('input', function () {
+    errorstreet.innerHTML = street.value.trim() === "" ? "Please enter street name" : /^[a-zA-Z ]+$/.test(street.value) == false ? "Please enter alphabets only" : "";
+  });
+  city.addEventListener('input', function () {
+    errorcity.innerHTML = city.value.trim() === "" ? "Please enter city name" : /^[a-zA-Z ]+$/.test(city.value) == false ? "Please enter alphabets only" : "";
+  });
+  state.addEventListener('input', function () {
+    errorstate.innerHTML = state.value.trim() === "" ? "Please enter state name" : /^[a-zA-Z ]+$/.test(state.value) == false ? "Please enter alphabets only" : "";
+  });
+
+  pincode.addEventListener('input', function () {
+    errorpincode.innerHTML = pincode.value.trim() === "" ? "Please enter  number" : /^\d{6}$/.test(pincode.value) == false ? "Please enter valid  number" : "";
+  });
+
+
+});
+function validationChecking() {
+  const houseName = document.getElementById("houseName");
+  const errorhouseName = document.getElementById("errorhouseName");
+  const street = document.getElementById("street");
+  const errorstreet = document.getElementById("errorstreet");
+  const city = document.getElementById("city");
+  const errorcity = document.getElementById("errorcity");
+  const state = document.getElementById("state");
+  const errorstate = document.getElementById("errorstate");
+  const pincode = document.getElementById("pincode");
+  const errorpincode = document.getElementById("errorpincode");
+
+  let isValid = true;
+
+  errorhouseName.innerHTML = houseName.value.trim() === "" ? "Please enter home name" : /^[a-zA-Z ]+$/.test(houseName.value) == false ? "Please enter alphabets only" : "";
+  errorstreet.innerHTML = street.value.trim() === "" ? "Please enter street name" : /^[a-zA-Z ]+$/.test(street.value) == false ? "Please enter alphabets only" : "";
+  errorcity.innerHTML = city.value.trim() === "" ? "Please enter city name" : /^[a-zA-Z ]+$/.test(city.value) == false ? "Please enter alphabets only" : "";
+  errorstate.innerHTML = state.value.trim() === "" ? "Please enter state name" : /^[a-zA-Z ]+$/.test(state.value) == false ? "Please enter alphabets only" : "";
+  errorpincode.innerHTML = pincode.value.trim() === "" ? "Please enter pincode" : /^\d{6}$/.test(pincode.value) == false ? "Please enter valid pincode" : "";
+
+  if (
+    errorhouseName.innerHTML ||
+    errorstreet.innerHTML ||
+    errorcity.innerHTML ||
+    errorstate.innerHTML ||
+    errorpincode.innerHTML
+  ) {
+    isValid = false;
+  }
+
+  return isValid;
+}
+</script>
+
+
+    <%- include ('../layouts/footer.ejs') -%>
+
+    

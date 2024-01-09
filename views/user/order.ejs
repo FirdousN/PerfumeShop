@@ -1,0 +1,59 @@
+<%- include ('../layouts/head.ejs') -%>
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('/static/user-assets/images/backgrounds/bg-1.jpg')">
+        <div class="container">
+            <h1 class="page-title">Your Orders</h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Orders</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="container">
+            <table class="table table-wishlist table-mobile">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Order Date</th>
+                        <th>Delivery Date</th>
+                        <!-- <th>Status</th> -->
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% if (order && Array.isArray(order)) { %>
+                    <% order.forEach(function(order_data) { 
+                        %>
+                    <tr>
+                        <td><%= order_data._id %></td>
+                        <td><%= new Date(order_data.orderDate).toLocaleDateString() %></td>
+                        <td><%= new Date(order_data.deliveryDate).toLocaleDateString() %></td>
+                        <!-- <td><%= order_data.status %></td> -->
+                        <td><%= order_data.totalAmount %></td>
+                        <td><a href="/orderDetails/<%= order_data._id%>" class="btn-small d-block">View</a></td>
+                    </tr>
+                    <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="6">No orders found.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table><!-- End .table table-wishlist -->
+
+        </div><!-- End .container -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+
+
+<%- include ('../layouts/footer.ejs') -%>

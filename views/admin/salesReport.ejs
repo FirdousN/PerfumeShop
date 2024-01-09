@@ -1,0 +1,308 @@
+<%-  include ('../layouts/header.ejs') -%>
+
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="/admin/home" class="brand-wrap">
+                <img src="/static/admin-assets/imgs/theme/logo1.png" class="logo" alt="Admin Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/home"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/product"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                    
+                </li>
+                
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/category"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Category</span>
+                    </a>
+                   
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/brand"> <i class="icon material-icons md-star"></i>
+                        <span class="text">Brand</span>
+                    </a>
+                </li>
+                <!-- <li class="menu-item ">
+                    <a class="menu-link" href="page-transactions-1.html"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text">Coupon</span>
+                    </a>
+                    
+                </li> -->
+                <!-- <li class="menu-item ">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Banner</span>
+                    </a>
+                 
+                </li> -->
+                <!-- <li class="menu-item">
+                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Transactions</span>
+                    </a>
+                </li> -->
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/userManage"> <i class="icon material-icons md-person "></i>
+                        <span class="text">Customers</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" disabled href="/admin/logout"> <i class="icon material-icons md-settings"></i>
+                        <span class="text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="menu-aside">
+                <li class="menu-item active ">
+                    <a class="menu-link" href="/admin/salesReport"> <i class="icon material-icons md-store "></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+             <div class="col-search">
+               <!-- <form class="searchform" role="search"  method="post">
+                    <div class="input-group"> -->
+                        <!-- <input list="search_terms" type="text" class="form-control" placeholder="Search ...."> -->
+                        <!-- <input type="text" placeholder="Search...." name="search" class="form-control" id="search">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                    </div>
+                </form>-->
+            </div> 
+            <div class="btn-toolbar mb-2 mb-md 0">
+                <a href="/admin/home" class="btn btn-primary" style="margin-right: 6px;">Home</a>
+                <!-- <a href="/admin/new-user" class="btn btn-primary" style="margin-right: 6px;">+ New User</a> -->
+                <a href="/admin/logout" class="btn btn-primary" >Logout</a>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                    </li>
+                    
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/static/admin-assets/imgs/people/avatar2.png" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="/admin/logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section class="content-main">
+            <div class="content-header">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown
+                    </button>
+                    <ul class="dropdown-menu">
+                    <a href="/admin/salesReport?status=All" class="dropdown-item" >All</a>
+                    <a href="/admin/salesReport?status=Daily" class="dropdown-item" >Daily</a>
+                    <a href="/admin/salesReport?status=Weekly" class="dropdown-item" >Weekly</a>
+                    <a href="/admin/salesReport?status=Monthly" class="dropdown-item" >Monthly</a>
+                    <a href="/admin/salesReport?status=Yearly" class="dropdown-item" >Yearly</a>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button id="pdfButton" class="btn btn-secondary print ms-2"><i class="icon material-icons md-print"></i> Download </button>
+                        <button class="btn btn-secondary print ms-2"  onclick="export_data()"><i class="icon material-icons md-print"></i> xlsx </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <header class="card-header">
+                    <div class="row align-items-center" >
+                        <form action="" method="get">
+                            <div style="display: flex;  align-items: center;">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search for products...">
+                            <div class="col-md-1 col-12 me-auto mb-md-0 mb-3" style="display: flex;">
+                            </div>
+                        </form>
+                    </div>
+                </header>
+
+                <div class="card-body">
+                    <div class="d-flex" style="justify-content: center;">
+                        <h2 class="content-title card-title">Sales Report</h2>
+                        
+                    </div>
+                    <p>Total Revenue:₹ <%= totalRevenue.toFixed(2) %> </p>
+
+                    <!-- Display Number of Orders with Status "Returned" -->
+                    <!-- <p>Number of Returned Orders: <%#= returnedOrders.length %></p> -->
+
+                    <!-- Display Total Number of Sales -->
+                    <p>Total Sales: <%= totalSales %></p>
+
+                    <!-- Display Number of Products Sold -->
+                    <p>Total Products Sold: <%= totalProductsSold %></p>
+
+                    <!-- Display Product that is Mostly Sold -->
+                    <table id="products" class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Order Id</th>
+                            <th scope="col">Billing Name</th>
+                            <th scope="col">Ordered Date</th>
+                            <th scope="col">Delivery Date</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                        
+                            <th scope="col">Payment Method</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% orders.forEach((order) => {
+                            order.items.forEach((item) => { %>
+                            <tr>
+                                <td><%= order._id %></td>
+                                <td><%= order.user.name %></td>
+                                <td><%= new Date(order.orderDate).toLocaleDateString() %></td>
+                                <td><%= new Date(order.deliveryDate).toLocaleDateString() %></td>
+                                <td><%= order.totalAmount %></td>
+                                <td>
+                                <% if (item.status == 'Confirmed') { %>
+                                    <span class="badge badge-pill badge-soft-info"><%= item.status %></span>
+                                <% } else if (item.status == 'Shipped') { %>
+                                    <span class="badge badge-pill badge-soft-dark"><%= item.status %></span>
+                                <% } else if (item.status == 'Delivered') { %>
+                                    <span class="badge badge-pill badge-soft-success"><%= item.status %></span>
+                                <% } else { %>
+                                    <span class="badge badge-pill badge-soft-danger"><%= item.status %></span>
+                                <% } %>
+                                </td>
+                                <td>
+                                <p><%= item.paymentMethod %></p>
+                                </td>
+                            </tr>
+                            <% });
+                            }); %> 
+                        </tbody>
+                    </table>
+                </div> <!-- card-body end// -->
+            </div> <!-- card end// -->
+        </section> <!-- content-main end// -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+        <script>
+            document.getElementById("pdfButton").addEventListener("click", function () {
+                const salesContainer = document.querySelector(".card-body");
+                const pdfOptions = {
+                    filename: 'SalesReport.pdf',
+                    image: { type: 'jpeg', quality: 1.0 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+                html2pdf().from(salesContainer).set(pdfOptions).save();
+            });
+        </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const table = document.getElementById("products");
+        const rows = table.getElementsByTagName("tr");
+
+        searchInput.addEventListener("keyup", function () {
+            const searchText = searchInput.value.toLowerCase();
+
+            for (let i = 1; i < rows.length; i++) {
+                const rowData = rows[i].textContent.toLowerCase();
+                if (rowData.includes(searchText)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        });
+    });
+    $(document).ready(function ($) {
+            $(document).on('click', '#pdfButton', function (event) {
+                event.preventDefault();
+                var element = document.getElementById('products');
+                let randomNumber = Math.floor(Math.random() * (10000000000 - 1)) + 1;
+                var opt = {
+                    margin: 0,
+                    filename: 'SalesReport' + randomNumber + '.pdf',
+                    html2canvas: { scale: 10 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+                html2pdf().set(opt).from(element).save();
+            });
+        });
+
+        function export_data() {
+    let data = document.getElementById('products');
+    let wb = XLSX.utils.table_to_book(data, { sheet: 'vishal' });
+
+    let wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+    function s2ab(s) {
+        const buf = new ArrayBuffer(s.length);
+        const view = new Uint8Array(buf);
+        for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+        return buf;
+    }
+
+    let blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+    saveAs(blob, 'test.xlsx'); // This will prompt a download for the file
+    }
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    <!-- xlsx.core.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.core.min.js"></script>
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©, PERFUME SHOP .
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    
+    <%-  include ('../layouts/adminFooter.ejs') -%>

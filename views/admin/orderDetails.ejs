@@ -1,0 +1,185 @@
+<%-  include ('../layouts/header.ejs') -%>
+
+
+    <section class="content-main">
+        <div class="content-header">
+            <div>
+                <h5 class="content-title card-title">Order detail</h5>
+                <p>Details for Order ID: 3453012</p>
+            </div>
+        </div>
+        <div class="card">
+            <header class="card-header">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-md-4 mb-lg-0 mb-15">
+                            <span>
+                                <i class="material-icons md-calendar_today"></i> Order DATE:<b>
+                                    <%= new Date(order.orderDate).toLocaleDateString() %>
+                                </b>
+                            </span> <br>
+                            <small class="text-muted">Order ID: <%=order._id %></small>
+                        </div>
+                        <div class="col-lg-4 col-md-4 ">
+                            <div class="text">
+                                <h6 class="mb-1">Customer</h6>
+                                <small class="text-muted">CUSTOMER NAME:  <%=order.user.name %></small><br>
+                                <small class="text-muted">CUSTOMER MOBILE:  <%=order.user.mobile %></small>
+
+                                <br>
+                                <a href="#">View profile</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4  ">
+
+                            <div class="text-center">
+                                <h6 class="mb-1">Deliver to</h6>
+                                <p class="mb-1">
+                                    City: <%=order.address.city %>, <%=order.address.street %> <br>
+                                            <%=order.address.houseName %> <br>
+                                                <%=order.address.pincode %>
+                                </p>
+                                <a href="#">View profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="30%">Product</th>
+                                            <th width="10%">Unit Price</th>
+                                            <th width="10%">Quantity</th>
+                                            <th width="10%" class="text-end">Total</th>
+                                            <th width="15%" class="text-end">status</th>
+                                            <th width="15%" class="text-end">Payment</th>
+                                            <th width="15%" class="text-end">Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% let subtotal=0; 
+                                        order.items.forEach(function(item) { 
+                                            let total = item.product.price * item.quantity;
+                                            console.log("Price",item.price)
+                                            subtotal = order.totalAmount; %>
+                                            <tr>
+                                                <td>
+                                                    <a class="itemside" href="#">
+                                                        <div class="left">
+                                                            <img src="/static/admin-assets/imgs/product/<%=item.product.image[0]%>"
+                                                                width="40" height="40" class="img-xs" alt="Item">
+                                                        </div>
+                                                        <div class="info">
+                                                            <%=item.product.name %>
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                <span> <%=item.product.price %></span>
+                                                </td>
+                                                <td>
+                                                    <%= item.quantity %>
+                                                </td>
+                                                <td class="text-end">
+                                                    ₹<%= total %>
+                                                </td>
+                                                <td class="text-end">
+                                                    <%= item.status %>
+                                                </td>
+                                                <td class="text-end">
+                                                    <%= item.paymentMethod %>
+                                                </td>
+                                                <td class="text-end">
+                                                    <% if (item.status ) { %>  
+                                                        <li class="dropdown nav-item me-4">
+                                                            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false">select status </a>
+                                                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                                                            <button class="dropdown-item" onclick="changeStatus('<%= order._id %>', '<%= item.product._id %>', 'Confirmed')">Confirmed</button>                           
+                                                            <button class="dropdown-item" onclick="changeStatus('<%= order._id %>', '<%= item.product._id %>', 'Shipped')">Shipped</button>
+                                                            <button class="dropdown-item" onclick="changeStatus('<%= order._id %>', '<%= item.product._id %>', 'Delivered')">Delivered</button>
+                                                            </div>
+                                                        </li>
+                                                    <% }%>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                            <tr>
+                                                <td colspan="5"></td>
+                                                <td colspan="2">
+                                                    <article class="">
+                                                        <dl class="dlist">
+                                                            <dt>Subtotal:
+                                                                ₹<%= subtotal %>
+                                                            </dt>
+                                                        </dl>
+                                                        <dl class="dlist">
+                                                            <dt>Shipping cost:
+                                                                ₹0.00</dt>
+                                                        </dl>
+                                                        <dl class="dlist">
+                                                            <dt>Grand total:
+                                                                <b class="h5">₹<%= subtotal %></b>
+                                                            </dt>
+                                                        </dl>
+                                                        <dl class="dlist">
+                                                            <dt class="text-muted">Status:
+                                                                <span
+                                                                    class="badge rounded-pill alert-success text-success">Payment
+                                                                    done</span>
+                                                            </dt>
+                                                        </dl>
+                                                    </article>
+                                                </td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div> <!-- table-responsive// -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+    <script>
+    
+    function changeStatus(id, productId,status) {
+                const requestData = {
+
+                    status,
+                    productId
+                };
+    fetch(`/admin/orderStatus?id=${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+    })
+            .then(response => response.json())
+            .then(data => {
+        
+                if (data.message) {
+                    location.reload();
+                    console.log("success");
+                } else {
+                    alert('Error occurred while placing order');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error occurred while placing order');
+            });    
+    }
+
+    </script>
+    
+
+    <%-  include ('../layouts/adminFooter.ejs') -%>

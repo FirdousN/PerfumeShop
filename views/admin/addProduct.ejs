@@ -1,0 +1,367 @@
+<%-  include ('../layouts/header.ejs') -%>
+
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="/admin/home" class="brand-wrap">
+                <img src="/static/admin-assets/imgs/theme/logo1.png" class="logo" alt="Admin Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/home"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/product"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                    
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/category"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Category</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/brand"> <i class="icon material-icons md-star"></i>
+                        <span class="text">Brand</span>
+                    </a>
+                </li>
+                <!-- <li class="menu-item">
+                    <a class="menu-link" href="page-transactions-1.html"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text">Coupon</span>
+                    </a>
+                    
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Banner</span>
+                    </a>
+                  
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Transactions</span>
+                    </a>
+                </li> -->
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/userManage"> <i class="icon material-icons md-person "></i>
+                        <span class="text">Customers</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" disabled href="/admin/logout"> <i class="icon material-icons md-settings"></i>
+                        <span class="text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/salesReport"> <i class="icon material-icons md-store"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <!-- <form class="searchform" role="search" action="/admin/search" method="post">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" placeholder="Search ....">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                    </div>
+                </form> -->
+            </div>
+            <div class="btn-toolbar mb-2 mb-md 0">
+                <a href="/admin/home" class="btn btn-primary" style="margin-right: 6px;">Home</a>
+                <a href="/admin/addProduct" class="btn btn-primary" style="margin-right: 6px;">+ Product</a>
+                <a href="/admin/logout" class="btn btn-primary" >Logout</a>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                    </li>
+                    
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/static/admin-assets/imgs/people/avatar2.png" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="#"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section class="content-main">
+            <div class="container-fluid px-4">
+                <div>
+                    <h2 class="content-title card-title">Product Management</h2>
+                </div>
+                <form action="/admin/addProduct" method="post" enctype="multipart/form-data" id="product-form" onsubmit="return validateProduct()">
+                    <section class="content-main">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h4>Basic</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <%
+                                        if(typeof message !=='undefined'){
+                                        %>
+                                        <b> <h5> <%= message %> </h5></b>
+                                        <%
+                                        }
+                                        %>
+                                        <div class="mb-4">
+                                            <label for="product_name" class="form-label">Product name</label>
+                                            <input type="text" name="name" placeholder="Type here" class="form-control" id="product_title">
+                                            <div class="error-message" style="color: red;" id="product_title-error"></div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="product_category" class="form-label">Product category</label>
+                                            <select name="category" class="form-control" >
+                                                <option value="" selected></option>
+                                                <% category.forEach((cat) => {
+                                                     if(cat.is_listed) { %>
+                                                        <option value="<%= cat._id %>"><%= cat.name %></option>
+                                                    <% }
+                                                }); %> 
+                                            </select>                                        
+                                        <div class="error-message" style="color: red;" id="product_category-error"></div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="product_brand" class="form-label">Product Brand</label>
+                                            <select name="brand" class="form-control" >
+                                                <option value="" selected></option>
+                                                <% brand.forEach((brand) => {
+                                                     if(brand.is_listed) { %>
+                                                        <option value="<%= brand._id %>"><%= brand.name %></option>
+                                                    <% }
+                                                }); %> 
+                                            </select>                                        
+                                        <div class="error-message" style="color: red;" id="product_category-error"></div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="product_price" class="form-label">Price</label>
+                                            <input type="text" name="price" placeholder="Type here" class="form-control" id="product_price">
+                                            <div class="error-message" style="color: red;" id="product_price-error"></div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="product_discount" class="form-label">Discount Price</label>
+                                            <input type="text" name="discount_price" placeholder="Type here" class="form-control" id="product_discount">
+                                            <div class="error-message" style="color: red;" id="product_discount-error"></div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="product_quantity" class="form-label">Stock</label>
+                                            <input type="text" name="stock" placeholder="Type here" class="form-control" id="product_quantity">
+                                            <div class="error-message" style="color: red;" id="product_quantity-error"></div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="product_size" class="form-label">Size</label>
+                                            <input type="text" name="productSize" placeholder="Type here" class="form-control" id="product_size">
+                                            <div class="error-message" style="color: red;" id="product_size-error"></div>
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <label class="form-label">Full description</label>
+                                            <textarea name="product_description" id="product_description" placeholder="Type here" class="form-control" rows="4"></textarea>
+                                            <div class="error-message" style="color: red;" id="product_description-error"></div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h4>Picture</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="card mb-4">
+                                            <div class="card-body">   
+                                                <div class="input-upload">                                             
+                                                    <div class="images-container">
+                                                        <div class="image-preview-container d-flex flex-wrap justify-content-center">
+                                                            <!-- Placeholder for default image -->
+                                                            <div class="image-container border-1">
+                                                                <img style="width: 100px; height: 100px; margin-bottom: 20px;" src="/static/admin-assets/imgs/theme/images.jpeg" alt="default" class="image-preview" id="product_image_preview">
+                                                            </div>
+                                                        </div>
+                                                        <input class="form-control" name="image"  multiple="multiple" type="file" id='product_image' onchange="displayProductImage(this)">
+                                                        <div class="error_message" style="color: red;" id="product_image-error"></div>
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div>
+                                    <input type="submit" value="submit" class="btn btn-primary btn-md rounded font-sm hover-up">
+                                </div>
+                            </div>
+                        </div>
+                    </section> 
+                </form>
+                <div style="position: relative; width: 100%;" class="mb-4 justify-content-center text-center">
+                    <% 
+                    if (typeof errorMessage !== 'undefined') {
+                    %>
+                    <p style="position: absolute; transform: translate(-50%, -50%); left: 50%; color: crimson; white-space: nowrap;"><%= errorMessage %></p>
+                    <%
+                    }
+                    %>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('product-form');
+            const allowedFormats = ['image/jpeg', 'image/png', 'image/webp','image/jpg']; 
+            form.addEventListener('submit', function(event) {
+                const product_title = document.getElementById("product_title").value.trim();
+                const category = document.querySelector('select[name="category"]').value.trim();
+                const product_price = document.getElementById("product_price").value.trim();
+                const product_discount = document.getElementById("product_discount").value.trim();
+                const product_quantity = document.getElementById("product_quantity").value.trim();
+                const product_size = document.getElementById("product_size").value.trim();
+                // const product_gender = document.getElementById("product_gender").value.trim();
+                const product_description = document.getElementById("product_description").value.trim();
+                const imageInput = document.querySelector('input[name="image"]');
+
+                const product_title_error = document.getElementById("product_title-error");
+                const category_error = document.getElementById("product_category-error");
+                const product_price_error = document.getElementById("product_price-error");
+                const product_discount_error = document.getElementById("product_discount-error");
+                const product_quantity_error = document.getElementById("product_quantity-error");
+                const product_size_error = document.getElementById("product_size-error");
+                // const product_gender_error = document.getElementById("product_gender-error");
+                const product_description_error = document.getElementById("product_description-error");
+                const image_error = document.getElementById("product_image-error");
+
+                let formIsValid = true;
+
+                if (product_title.trim() === "") {
+                    product_title_error.innerHTML = "Please enter product name";
+                    formIsValid = false;
+                } else {
+                    product_title_error.innerHTML = "";
+                }
+                if (category.trim() === "") {
+                    category_error.innerHTML = "Please select a category";
+                    formIsValid = false;
+                } else {
+                    category_error.innerHTML = "";
+                }
+                if (isNaN(product_price) || product_price.trim() === "" || parseFloat(product_price) < 0) {
+                    product_price_error.innerHTML = "Please enter a valid price";
+                    formIsValid = false;
+                } else {
+                    product_price_error.innerHTML = "";
+                }
+
+                if (isNaN(product_discount) || product_discount.trim() === "" || parseFloat(product_discount) < 0) {
+                    product_discount_error.innerHTML = "Please enter a valid discount";
+                    formIsValid = false;
+                } else {
+                    product_discount_error.innerHTML = "";
+                }
+                if (isNaN(product_quantity) || product_quantity.trim() === "") {
+                    product_quantity_error.innerHTML = "Please enter product quantity";
+                    formIsValid = false;
+                } else {
+                    product_quantity_error.innerHTML = "";
+                }
+                if (isNaN(product_size) || product_size.trim() === "") {
+                    product_size_error.innerHTML = "Please enter a valid size";
+                    formIsValid = false;
+                } else {
+                    product_size_error.innerHTML = "";
+                }
+                if (!product_gender.value || product_gender.value === 'Select a Gender') {
+                    product_gender_error.innerHTML = "Please select a gender";
+                    formIsValid = false;
+                } else {
+                    product_gender_error.innerHTML = "";
+                }
+                if (product_description.trim() === "") {
+                    product_description_error.innerHTML = "Please enter product description";
+                    formIsValid = false;
+                } else {
+                    product_description_error.innerHTML = "";
+                }
+                
+                if (imageInput.files.length === 0) {
+                    image_error.innerHTML = "Please select at least one image";
+                    formIsValid = false;
+                } else {
+                    let validFormat = true;
+                    for (let i = 0; i < imageInput.files.length; i++) {
+                        if (!allowedFormats.includes(imageInput.files[i].type)) {
+                            validFormat = false;
+                            break;
+                        }
+                    }
+                    if (!validFormat) {
+                        image_error.innerHTML = "Please select correct image format for all images";
+                        formIsValid = false;
+                    } else {
+                        image_error.innerHTML = "";
+                    }
+                }
+                if (!formIsValid) {
+                    event.preventDefault(); // Prevent form submission if validation fails
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const productImageInput = document.getElementById('product_image');
+        const productImagePreview = document.getElementById('product_image_preview');
+
+        productImageInput.addEventListener('change', function() {
+            displayProductImage(this, productImagePreview);
+            });
+        });
+
+        function displayProductImage(input, preview) {
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '/static/admin-assests/imgs/theme/images.jpeg';
+            }
+        }
+    </script>      
+<%-  include ('../layouts/adminFooter.ejs') -%>

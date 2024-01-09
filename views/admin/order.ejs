@@ -1,0 +1,349 @@
+<%-  include ('../layouts/header.ejs') -%>
+
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="/admin/home" class="brand-wrap">
+                <img src="/static/admin-assets/imgs/theme/logo1.png" class="logo" alt="Admin Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/home"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/product"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                    
+                </li>
+                
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/category"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Category</span>
+                    </a>
+                   
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/brand"> <i class="icon material-icons md-star"></i>
+                        <span class="text">Brand</span>
+                    </a>
+                </li>
+                <!-- <li class="menu-item">
+                    <a class="menu-link" href="page-transactions-1.html"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text">Coupon</span>
+                    </a>
+                    
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Banner</span>
+                    </a>
+                  
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Transactions</span>
+                    </a>
+                </li> -->
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/userManage"> <i class="icon material-icons md-person "></i>
+                        <span class="text">Customers</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" disabled href="/admin/logout"> <i class="icon material-icons md-settings"></i>
+                        <span class="text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/salesReport"> <i class="icon material-icons md-store"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form  class="searchform" role="search" >
+                    <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" name="search" placeholder="Search ....">
+                        <button class="btn btn-light bg" type="submit"> <i class="material-icons md-search"></i></button>
+                    </div>
+                </form>
+            </div>
+            <div class="btn-toolbar mb-2 mb-md 0">
+                <a href="/admin/home" class="btn btn-primary" style="margin-right: 6px;">Home</a>
+                <a href="/admin/orders" class="btn btn-primary" style="margin-right: 6px;">Orders</a>
+                <a href="/admin/logout" class="btn btn-primary" >Logout</a>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                    </li>
+                    
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/static/admin-assets/imgs/people/avatar2.png" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="#"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section class="content-main">
+            <div class="content-header">
+                <div>
+                    <h2 class="content-title card-title">Order List </h2>
+                </div>
+                <div>
+                    <input type="text" placeholder="Search order ID" class="form-control bg-white">
+                </div>
+            </div>
+            <div class="card mb-4">
+                <header class="card-header">
+                    <div class="row gx-3">
+                        <div class="col-lg-4 col-md-6 me-auto">
+                            <input type="text" placeholder="Search..." class="form-control" >
+                        </div>
+                        <div class="col-lg-2 col-6 col-md-3">
+                            <select name="sortby" id="sortby" class="form-select" onchange="sortItems()">
+                                <!-- <option>Status</option>
+                                <option>Completed</option>
+                                <option>Pending </option>
+                                <option>Show all</option> -->
+                            </select>
+                            
+                        </div>
+                        <div class="col-lg-2 col-6 col-md-3">
+                            <select class="form-select">
+                                <option>Show 20</option>
+                                <option>Show 30</option>
+                                <option>Show 40</option>
+                            </select>
+                        </div>
+                    </div>
+                </header> <!-- card-header end// -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Order ID</th>
+                                    <th scope="col">Order Date</th>
+                                    <th scope="col">Delivery Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col" class="text-end"> Action </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% order.forEach(function(order_data) { 
+                                    %>
+                                <tr>
+                                    <td><%= order_data._id %></td>
+                                    <td><%= new Date(order_data.orderDate).toLocaleDateString() %></td>
+                                    <td> <%= new Date(order_data.deliveryDate).toLocaleDateString() %></td>
+                                    <td><% let f = 0;
+                                        order_data.items.forEach(function(item) {
+                                            if(item.status !== 'Cancelled' && item.status !== 'Delivered' && item.status !== 'Returned') {
+                                                f = 1;
+                                            }
+                                        });
+                                        if (f === 0) { %>
+                                            Completed
+                                        <% } else { %>
+                                            Pending
+                                        <% } %>
+                                    </td> 
+                                    
+                                   
+                                    <td><%= order_data.totalAmount %></td>
+                                    <td class="text-end">
+                                        <a href="/admin/orderDetails?id=<%= order_data._id %>" class="btn btn-md rounded font-sm">View</a>
+                                    </td>
+                                </tr>
+                                <% } )%>
+                                
+                            </tbody>
+                        </table>
+                    </div> <!-- table-responsive //end -->
+                </div> <!-- card-body end// -->
+            </div> <!-- card end// -->
+            <div class="pagination-area mt-15 mb-50">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <% if (currentPage > 1) { %>
+                            <li class="page-item">
+                              <a class="page-link" href="?page=<%= currentPage - 1 %>"><</a>
+                            </li>
+                          <% } %>
+                      
+                          <% for (let i = 1; i <= totalPages; i++) { %>
+                            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                              <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                            </li>
+                          <% } %>
+                      
+                          <% if (currentPage < totalPages) { %>
+                            <li class="page-item">
+                              <a class="page-link" href="?page=<%= currentPage + 1 %>">></a>
+                            </li>
+                          <% } %>
+                    </ul>
+                </nav>
+            </div>
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+                    document.write(new Date().getFullYear())
+                    </script> ©, Perfume Shop  .
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+<script>
+
+// SORTING 
+document.addEventListener('DOMContentLoaded', () => {
+    const sortSelect = document.getElementById('sortby');
+    let sortOrder = {
+        'status-completed': 'desc',
+        'status-pending': 'desc'
+    };
+
+    const sortOptions = [
+        { value: 'status', label: ' Status' },
+        { value: 'status-completed', label: ' Completed' },
+        { value: 'status-pending', label: ' Pending' }
+    ];
+
+    sortOptions.forEach(option => {
+        const optionElement = document.createElement('option');
+        optionElement.value = option.value;
+        optionElement.textContent = option.label;
+        sortSelect.appendChild(optionElement);
+        sortOrder[option.value] = 'desc';
+    });
+
+    sortSelect.addEventListener('change', () => {
+        const selectedOption = sortSelect.value;
+        sortOrder[selectedOption] = sortOrder[selectedOption] === 'asc' ? 'desc' : 'asc';
+        sortProducts(selectedOption, sortOrder[selectedOption]);
+    });
+
+    function sortProducts(sortBy, sortOrder) {
+        const productsContainer = document.querySelector('.products .row');
+        const productItems = document.querySelectorAll('.products .col-6');
+        const productsArray = Array.from(productItems);
+
+        productsArray.sort((a, b) => {
+            const productA = getProductValue(a, sortBy);
+            const productB = getProductValue(b, sortBy);
+
+            return sortOrder === 'asc' ? productA.localeCompare(productB) : productB.localeCompare(productA);
+        });
+
+        productsContainer.innerHTML = '';
+
+        productsArray.forEach(product => {
+            productsContainer.appendChild(product);
+        });
+    }
+
+    function getProductValue(productElement, sortBy) {
+        const product = productElement.querySelector('.product');
+
+        switch (sortBy) {
+            case 'status-completed':
+            case 'status-pending':
+                return product.dataset.status;
+            default:
+                return '';
+        }
+    }
+});
+
+ 
+
+
+//pagination
+document.addEventListener('DOMContentLoaded', () => {
+  // Assume total pages and current page are known or calculated
+  const totalPages = 2;
+  const currentPage = 1; // Change this dynamically
+
+  const paginationContainer = document.getElementById('pagination');
+  const prevPageButton = document.getElementById('prevPage');
+  const nextPageButton = document.getElementById('nextPage');
+
+  // Dynamically generate page numbers
+  for (let i = 1; i <= totalPages; i++) {
+    const pageItem = document.createElement('li');
+    pageItem.classList.add('page-item');
+    const pageLink = document.createElement('a');
+    pageLink.classList.add('page-link');
+    pageLink.href = '#'; // Set the actual link for each page
+    pageLink.textContent = i;
+    pageItem.appendChild(pageLink);
+    paginationContainer.insertBefore(pageItem, nextPageButton);
+  }
+
+  // Add the 'active' class to the current page
+  const currentPageElement = paginationContainer.querySelector(`.page-item:nth-child(${currentPage + 1})`);
+  currentPageElement.classList.add('active');
+
+  // Handle Previous and Next buttons based on the current page
+  prevPageButton.addEventListener('click', () => {
+    if (currentPage > 1) {
+      // Navigate to the previous page
+      // Implement your logic to handle the navigation
+    }
+  });
+
+  nextPageButton.addEventListener('click', () => {
+    if (currentPage < totalPages) {
+      // Navigate to the next page
+      // Implement your logic to handle the navigation
+    }
+  });
+});
+</script>
+
+    <%-  include ('../layouts/adminFooter.ejs') -%>
