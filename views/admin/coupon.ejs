@@ -1,0 +1,252 @@
+<%-  include ('../layouts/header.ejs') -%>
+
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="/admin/home" class="brand-wrap">
+                <img src="/static/admin-assets/imgs/theme/logo1.png" class="logo" alt="Admin Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/home"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/product"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                    
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/category"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Category</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/brand"> <i class="icon material-icons md-star"></i>
+                        <span class="text">Brand</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/coupon"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text">Coupon</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/banner"> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Banner</span>
+                    </a>
+                </li>
+                <!-- <li class="menu-item">
+                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Transactions</span>
+                    </a>
+                </li> -->
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/userManage"> <i class="icon material-icons md-person "></i>
+                        <span class="text">Customers</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" disabled href="/admin/logout"> <i class="icon material-icons md-settings"></i>
+                        <span class="text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/salesReport"> <i class="icon material-icons md-store"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form  class="searchform" role="search" >
+                    <div class="input-group">
+                         <input type="text" id="searchInput" class="form-control" placeholder="Search for coupon...">
+                    </div>
+                </form>
+            </div>
+            <div class="btn-toolbar mb-2 mb-md 0">
+                <a href="/admin/home" class="btn btn-primary" style="margin-right: 6px;">Home</a>
+                <a href="/admin/addCoupon" class="btn btn-primary" style="margin-right: 6px;">+ Coupon</a>
+                <a href="/admin/logout" class="btn btn-primary" >Logout</a>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                    </li>
+                    
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/static/admin-assets/imgs/people/avatar2.png" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="#"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section class="content-main">
+            <div class="content-header">
+                <div>
+                    <h2 class="content-title card-title">Coupon Management</h2>
+                </div>
+            </div> 
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="table align-middle table-nowrap mb-0" id="datatablesSimple">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="align-middle" scope="col">Coupon Code</th>
+                                        <th class="align-middle" scope="col">Discount</th>
+                                        <th class="align-middle" scope="col">Created Date</th>
+                                        <th class="align-middle" scope="col">Expiry Date</th>
+                                        <th class="align-middle" scope="col">Limit</th>
+                                        <th class="align-middle" scope="col">Minimum Cart Amount</th>
+                                        <th class="align-middle" scope="col">Redeemable Amount</th>
+                                        <th class="align-middle" scope="col">Status</th>
+                                        <th class="align-middle" scope="col">Action</th>
+                                    </tr>
+                                </thead>    
+                                <tbody>
+                                    <% coupon.forEach((coupon) => { %>
+                                        <tr style="height: 80px;" >                    
+                                        <td><%= coupon.code %></td>
+                                        <td>
+                                            <%= coupon.discount %>%
+                                         </td>
+                                        <td><%= new Date(coupon.createdDate).toLocaleDateString() %></td>
+                                        <td><%= new Date(coupon.expiry).toLocaleDateString() %></td>
+                                        <td><%= coupon.limit %> </td>
+                                        <td ><%= coupon.minAmt %> </td>
+                                        <td><%= coupon.maxAmt %> </td>
+                                        <td>   <% if (coupon.is_listed == true) { %>
+                            
+                                            <div class="col-lg-2 col-sm-2 col-4 col-status">
+                                                <span class="badge rounded-pill alert-success">listed</span>
+                                            </div>
+                                            <% } else { %>
+                                                <div class="col-lg-2 col-sm-2 col-4 col-status">
+                                                    <span class="badge rounded-pill alert-danger">unlisted</span>
+                                                </div>
+                                        <% } %></td>
+                                        <td>  <a href="/admin/couponDetails?couponId=<%= coupon._id %>" class="btn btn-secondary">Details</a>
+                                            <div class="dropdown">
+                                                <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-xs">
+                                                  <i class="material-icons md-more_horiz"></i>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                  <a class="dropdown-item font-xs" href="/admin/editCoupon?couponId=<%= coupon._id %>">Edit</a>
+                                                  <% if (coupon.is_listed) { %>
+                                                    <a href="/admin/couponUnlist?couponId=<%= coupon._id.toString() %>">
+                                                      <p class="text-danger ms-4 font-xs">Unlist</p>
+                                                    </a>
+                                                  <% } else { %>
+                                                    <a href="/admin/couponUnlist?couponId=<%= coupon._id.toString() %>">
+                                                      <p class="text-primary ms-4 font-xs">List</p>
+                                                    </a>
+                                                  <% } %>
+                                                </div>
+                                              </div> 
+                                        </td>
+                                    </tr>
+                                    <% } )%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination-area mt-30 mb-50" style="display: flex; justify-content: center;">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-start">
+                      <% if (currentPage > 1) { %>
+                        <li class="page-item">
+                          <a class="page-link" href="?page=<%= currentPage - 1 %>"><</a>
+                        </li>
+                      <% } %>
+                      <% for (let i = 1; i <= totalPages; i++) { %>
+                        <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                          <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                        </li>
+                      <% } %>
+                      <% if (currentPage < totalPages) { %>
+                        <li class="page-item">
+                          <a class="page-link" href="?page=<%= currentPage + 1 %>">></a>
+                        </li>
+                      <% } %>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©, PERFUME SHOP .
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const table = document.getElementById("datatablesSimple");
+        const rows = table.getElementsByTagName("tr");
+
+        searchInput.addEventListener("keyup", function () {
+            const searchText = searchInput.value.toLowerCase();
+
+            for (let i = 1; i < rows.length; i++) {
+                const rowData = rows[i].textContent.toLowerCase();
+                if (rowData.includes(searchText)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        });
+    });
+    </script>
+
+<%-  include ('../layouts/adminFooter.ejs') -%>

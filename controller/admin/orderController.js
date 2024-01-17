@@ -11,7 +11,7 @@ const listOrders = async (req, res) => {
     const admin = req.session.adminData;
     const page = parseInt(req.query.page) || 1;
     const limit = 6;
-    const totalCount = await Product.countDocuments();
+    const totalCount = await Order.countDocuments();
     const totalPages = Math.ceil(totalCount / limit);
     const orders = await Order.find()
       .populate("user")

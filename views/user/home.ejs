@@ -1,5 +1,12 @@
 <%- include ('../layouts/head.ejs') -%>
-
+<style>
+    .product-image {
+  display: center;
+  width: 50%;
+  margin-left: 60px;
+  height: auto;
+}
+</style>
     <div class="page-wrapper">
        
         <main class="main">
@@ -14,10 +21,12 @@
                             }
                         }
                     }'>
-                    <div class="intro-slide" style="background-image: url(/static/user-assets/images/backgrounds/camille.jpg);">
+                    <% for (let i = 0; i < banner.length; i++) { %>
+                        <% if (banner[i].is_listed) { %>
+                        <div class="intro-slide" style=" background-image :url('/static/admin-assets/imgs/banner/<%=banner[i].image%>')" background-size="cover">
                         <div class="container intro-content">
-                            <h3 class="intro-subtitle text-primary">OUR PICKS</h3><!-- End .h3 intro-subtitle -->
-                            <h1 class="intro-title">Get All <br>The Good Stuff</h1><!-- End .intro-title -->
+                            <h3 class="intro-subtitle text-primary"><%= banner[i].title%></h3><!-- End .h3 intro-subtitle -->
+                            <h1 class="intro-title"><%= banner[i].description %></h1><!-- End .intro-title -->
 
                             <a href="/shop" class="btn btn-outline-primary-2">
                                 <span style="color: #333333;">DISCOVER MORE</span>
@@ -26,17 +35,7 @@
                         </div><!-- End .intro-content -->
                     </div><!-- End .intro-slide -->
 
-                    <div class="intro-slide" style="background-image: url(/static/user-assets/images/backgrounds/edoardo.jpg);">
-                        <div class="container intro-content">
-                            <h3 class="intro-subtitle text-primary">all at 20% off</h3><!-- End .h3 intro-subtitle -->
-                            <h1 class="intro-title text-white">Unmissable Deals </h1><!-- End .intro-title -->
-
-                            <a href="/shop" class="btn btn-outline-primary-2 min-width-sm">
-                                <span>SHOP NOW</span>
-                                <i class="icon-long-arrow-right"></i>
-                            </a>
-                        </div><!-- End .intro-content -->
-                    </div><!-- End .intro-slide -->
+                    <% }} %>
                 </div><!-- End .intro-slider owl-carousel owl-simple -->
 
                 <span class="slider-loader"></span><!-- End .slider-loader -->
@@ -231,33 +230,38 @@
                 </div><!-- End #product-filter-area.widget-filter-area -->
                 
                 <div class="products-container" data-layout="fitRows">
-                    <% for (let i = 0; i < 8 && i < products.length; i++) { %>
-                        <div class="product-item furniture col-6 col-md-4 col-lg-3">
-                            <div class="product product-4">
-                                <figure class="product-media">
-                                    <a href="/product/?id=<%= products[i]._id %>" style="margin-left: 40px; margin-right: -89px;">
-                                        <img src="/static/admin-assets/imgs/product/<%= products[i].image[0] %>" alt="Product image" class="product-image">
-                                    </a>
-                                    <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                    </div><!-- End .product-action -->
-                                    <div class="product-action">
-                                        <a href="" class="btn-product btn-cart" onclick="addCart('<%=products._id%>')"><span>add to cart</span><i class="icon-long-arrow-right"></i></a>
-                                    </div><!-- End .product-action -->
-                                </figure><!-- End .product-media -->
-                                <div class="product-body">
-                                    <h3 class="product-title"><a href="/product" style="display: flex; justify-content: center;"><%= products[i].name %></a></h3><!-- End .product-title -->
-                                    <br>
-                                    <div class="product-price" style="display: flex; justify-content: center; margin-top: -20px;">
-                                        $<%= products[i].price %>
-                                    </div><!-- End .product-price -->
-                                    <!-- <div class="product-action" style="display: flex; justify-content: center;">
-                                        <a href="" class="btn-product btn-cart" onclick="addCart('<%=products._id%>')"><span>add to cart</span><i class="icon-long-arrow-right"></i></a>
-                                    </div>End .product-action -->
-                                </div><!-- End .product-body -->
-                            </div><!-- End .product -->
-                        </div><!-- End .product-item -->
-                    <% } %>
+                    <div class="row">
+                        <div class="row">
+                            <% for (let i = 0; i < 8 && i < products.length; i++) { %>
+                                <div class="product-item furniture col-6 col-md-4 col-lg-3">
+                                    <div class="product product-4">
+                                        <figure class="product-media">
+                                            <a href="/product/?id=<%= products[i]._id %>">
+                                                <img src="/static/admin-assets/imgs/product/<%= products[i].image[0] %>" alt="Product image" class="product-image">
+                                            </a>
+                                            <div class="product-action-vertical">
+                                                <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                            </div><!-- End .product-action -->
+                                            <div class="product-action">
+                                                <a href="#" class="btn-product btn-cart" onclick="addCart('<%=products._id%>')"><span>add to cart</span><i class="icon-long-arrow-right"></i></a>
+                                            </div><!-- End .product-action -->
+                                            <% if (!user) { %>
+                                                <!-- Show the signup button only for guest users -->
+                                                <a href="/signup" class="btn btn-primary">Sign Up</a>
+                                            <% } %>
+                                        </figure><!-- End .product-media -->
+                                        <div class="product-body text-center">
+                                            <h3 class="product-title"><a href="/product"><%= products[i].name %></a></h3><!-- End .product-title -->
+                                            <div class="product-price " style="margin-left: 115px;">
+                                                ₹<%= products[i].price %>
+                                            </div><!-- End .product-price -->
+                                        </div><!-- End .product-body -->
+                                    </div><!-- End .product -->
+                                </div><!-- End .product-item -->
+                            <% } %>
+                        </div><!-- End .row -->
+                        
+                    </div><!-- End .row -->
                     
                 </div>
             </div>

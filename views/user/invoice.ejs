@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        h1, h2 {
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-end me-4">
+        <button id="pdfButton" class="btn btn-secondary print ms-2">
+            <i class="icon material-icons md-print"></i> Download
+        </button>
+    </div>
+        <div id="pdfContent">
+        <h1>Invoice for Order: <%= order._id %></h1>
+
+        <h2>Items</h2>
+        <table id="products">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody><% let subtotal = 0; 
+                order.items.forEach(function(item) { 
+                    let total = item.product.price * item.quantity;
+                    
+                    // Subtract total for cancelled items
+                    if (item.status === 'Cancelled') {
+                        total = 0;
+                    }
+                    
+                    subtotal += total; 
+                %>
+                    <tr>
+                        <td><%= item.product.name %></td>
+                        <td><%= item.quantity %></td>
+                        <td>₹<%= item.product.price %></td>
+                        <td>₹<%= item.quantity * item.product.price %></td>
+                        <td><%= item.status %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <h2>Summary</h2>
+        <p>Total: ₹<%= subtotal%></p>
+
+        <h2>Customer Details</h2>
+        <p>Name: <%= order.user.name %></p>
+        <p>Address: <%= order.address.houseName %> , <%= order.address.street %></p>
+        <p> <%= order.address.city %> ,  <%= order.address.state %></p>
+        <p>Pincode : <%= order.address.pincode %></p>
+    </div>
+   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+<script src="https://unpkg.com/html2pdf.js"></script>
+
+
+    <script>
+        
+        $(document).ready(function ($) {
+            $(document).on('click', '#pdfButton', function (event) {
+            console.log("jjjjjjjj");
+                var element = document.getElementById('products');
+                if (!element) {
+            console.error("Element with id 'products' not found");
+            return;
+        }
+                let randomNumber = Math.floor(Math.random() * (10000000000 - 1)) + 1;
+                var opt = {
+                    margin: 0,
+                    filename: 'invoice' + randomNumber + '.pdf',
+                    html2canvas: { scale: 1 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+                var element = document.getElementById('pdfContent');
+
+                html2pdf().set(opt).from(element).save();
+        
+                console.log("Document created ");
+            });
+        });
+    </script>
+</body>
+</html>

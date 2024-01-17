@@ -64,25 +64,14 @@
                                     <td class="total-col"><%= productTotal[index] %></td>
                                     <td class="remove-col"><button class="btn-remove" onclick="confirmRemoveCartItem('<%= cartData.product._id %>')"><i class="icon-close"></i></button></td> <br><br>
                                 <% }) %>
-                                <% } %>
+                                <% }else{ %>
+                                    <td><p>No items in the cart ! </p></td>
+                                    <% }%>
                                 </tr>
                             </tbody>
                         </table><!-- End .table table-wishlist -->
 
-                        <div class="cart-bottom">
-                            <div class="cart-discount">
-                                <form action="#">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" required placeholder="coupon code">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
-                                        </div><!-- .End .input-group-append -->
-                                    </div><!-- End .input-group -->
-                                </form>
-                            </div><!-- End .cart-discount -->
-
-                            <!-- <a href="/cart" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a> -->
-                        </div><!-- End .cart-bottom -->
+                        
                     </div><!-- End .col-lg-9 -->
                     <aside class="col-lg-3">
                         <div class="summary summary-cart">
@@ -116,7 +105,7 @@
 
                                     <tr class="summary-total">
                                         <td>Total:</td>
-                                        <td>₹<%=subtotalWithShipping%></td>
+                                        <td>₹<%= subtotalWithShipping %></td>
                                     </tr><!-- End .summary-total -->
                                 </tbody>
                             </table><!-- End .table table-summary -->

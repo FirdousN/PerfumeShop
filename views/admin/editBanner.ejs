@@ -1,0 +1,278 @@
+<%-  include ('../layouts/header.ejs') -%>
+
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="/admin/home" class="banner-wrap">
+                <img src="/static/admin-assets/imgs/theme/logo1.png" class="logo" alt="Admin Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/home"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/product"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/category"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Category</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/brand"> <i class="icon material-icons md-star"></i>
+                        <span class="text">Brand</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/coupon"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text">Coupon</span>
+                    </a>
+                </li>
+                <li class="menu-item active ">
+                    <a class="menu-link" href="/admin/banner"> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Banner</span>
+                    </a>
+                </li>
+                <!-- <li class="menu-item">
+                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Transactions</span>
+                    </a>
+                </li>  -->
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/userManage"> <i class="icon material-icons md-person "></i>
+                        <span class="text">Customers</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" disabled href="/admin/logout"> <i class="icon material-icons md-settings"></i>
+                        <span class="text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/salesReport"> <i class="icon material-icons md-store"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form class="searchform" role="search" action="/admin/search" method="post">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" name="search"  placeholder="Search ....">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                    </div>
+                </form>
+            </div>
+            <div class="btn-toolbar mb-2 mb-md 0">
+                <a href="/admin/home" class="btn btn-primary" style="margin-right: 6px;">Home</a>
+                <a href="/admin/logout" class="btn btn-primary" >Logout</a>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                    </li>
+                    
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/static/admin-assets/imgs/people/avatar2.png" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <!-- <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                            <div class="dropdown-divider"></div> -->
+                            <a class="dropdown-item text-danger" href="/admin/logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section class="content-main">
+            <div class="container-fluid px-4">
+                <div>
+                    <h2 class="content-title card-title">Banner Management</h2>
+                </div>
+                <form action="/admin/editBanner/<%= banner._id%>" method="post" enctype="multipart/form-data" id="banner-form" onsubmit="return validateBanner()">
+                    <section class="content-main">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <%
+                                        if(typeof message !=='undefined'){
+                                        %>
+                                        <b> <h5> <%= error %> </h5></b>
+                                        <%
+                                    }
+                                    %>
+                                    <br>
+
+                                        <h4>Edit Banner</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <input type="hidden" name="id" value="<%= banner._id %>">
+                                        <div class="mb-4">
+                                            <label for="banner_name" class="form-label"> Title</label>
+                                            <input type="text" name="title" placeholder="Type here" class="form-control" id="banner_name" value="<%= banner.title %>">
+                                            <div class="error-message" style="color: red;" id="banner_name-error"></div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="form-label">Description </label>
+                                            <textarea name="description" id="description" placeholder="Type here" class="form-control" rows="4" value="<%= banner.description %>"></textarea>
+                                            <div class="error-message" style="color: red;" id="description-error"></div>
+                                        </div>
+                                    </div>
+                                </div> <!-- card end// -->
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h4>Picture</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="input-upload">
+                                            <div class="images-container">
+                                                <div class="image-preview-container d-flex flex-wrap justify-content-center">
+                                                    <!-- Placeholder for default image -->
+                                                    <div class="image-container border-1">
+                                                        <img style="width: 100px; height: 100px; margin-bottom: 20px;" src="/static/admin-assets/imgs/banner/<%= banner.image%>" alt="Default" class="image-preview" id="banner_image_preview">
+                                                    </div>
+                                                </div>
+                                                <input class="form-control" type="file" name="image" id="banner_image">
+                                            </div>
+                                            <div class="error-message" style="color: red;" id="banner_image-error"></div>
+                                        </div>
+                                    </div>
+                                </div> <!-- card end// -->
+                                <div>
+                                    <input type="submit" value="submit" class="btn btn-primary btn-md rounded font-sm hover-up">
+                                </div>
+                            </div>
+                        </div>
+                    </section> <!-- content-main end// -->
+                </form>
+                <div style="position: relative; width: 100%;" class="justify-content-center text-center">
+                    <% 
+                    if (typeof errorMessage !== 'undefined') {
+                    %>
+                    <p style="position: absolute; transform: translate(-50%, -50%); left: 50%; color: crimson; white-space: nowrap;"><%= errorMessage %></p>
+                    <%
+                    }
+                    %>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const bannerImageInput = document.getElementById('banner_image');
+        const bannerImagePreview = document.getElementById('banner_image_preview');
+
+        bannerImageInput.addEventListener('change', function() {
+            displayBannerImage(this, bannerImagePreview);
+            });
+        });
+
+        function displayBannerImage(input, preview) {
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '/static/admin-assests/imgs/theme/images.jpeg';
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const banner_name = document.getElementById("banner_name");
+            const banner_name_error = document.getElementById("banner_name-error");
+            const description = document.getElementById("description");
+            const description_error = document.getElementById("description-error");
+            const banner_image = document.getElementById("banner_image");
+            const banner_image_error = document.getElementById("banner_image-error");
+    
+            banner_name.addEventListener('input', function() {
+                banner_name_error.innerHTML = banner_name.value.trim() === "" ? "Please enter banner title" : "";
+            });
+    
+            description.addEventListener('input', function() {
+                description_error.innerHTML = description.value.trim() === "" ? "Please enter banner description" : "";
+            });
+    
+            banner_image.addEventListener('change', function() {
+                banner_image_error.innerHTML = banner_image.value.trim() === "" ? "Please upload banner image" : "";
+            });
+        });
+    
+        function validateBanner() {
+            const banner_name = document.getElementById("banner_name").value;
+            const description = document.getElementById("description").value;
+            const banner_image = document.getElementById("banner_image").value;
+
+            const banner_name_error = document.getElementById("banner_name-error");
+            const description_error = document.getElementById("description-error");
+            const banner_image_error = document.getElementById("banner_image-error");
+
+            banner_name_error.innerHTML = banner_name.trim() === "" ? "Please enter banner title" : "";
+            description_error.innerHTML = description.trim() === "" ? "Please enter banner description" : "";
+            banner_image_error.innerHTML = banner_image.trim() === "" ? "Please upload banner image" : "";
+            banner_image.addEventListener('change', function() {
+                const allowedFormats = ["image/jpeg", "image/jpg", "image/webp", "image/png"];
+
+                if (banner_image.files.length > 0) {
+                    const selectedFile = banner_image.files[0];
+                    const fileType = selectedFile.type;
+                    const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
+
+                    if (!allowedFormats.includes(fileType) && !['jpeg', 'jpg', 'webp', 'png'].includes(fileExtension)) {
+                        banner_image_error.innerHTML = "Please select image in correct formate";
+                        banner_image.value = ""; // Clear the input field to reset the selection
+                    } else {
+                        banner_image_error.innerHTML = "";
+                    }
+                }
+            });
+            if(banner_name.trim() !== ""){
+                checkBannerUniqueness(catgeory_name, function(isUnique){
+                    if(!isUnique){
+                        banner_name_error.innerHTML = "Banner title must be unique"
+                    }
+                })
+            }
+            if (banner_name.trim() === "" || description.trim() === "" || banner_image.trim() === "") {
+                return false; // Prevent form submission if any field is empty
+            }
+
+            return true; // Allow form submission if all validations pass
+        }
+    </script>
+<%-  include ('../layouts/adminFooter.ejs') -%>

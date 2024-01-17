@@ -1,8 +1,6 @@
 const express = require("express");
 const admin_route = express();
 const session = require("express-session");
-const config = require("../config/config");
-// const bodyParser = require("body-parser")
 admin_route.use(express.json());
 admin_route.use(express.urlencoded({ extended: true }));
 const multer = require("../middleware/multer");
@@ -13,6 +11,8 @@ const categoryController = require("../controller/admin/categoryController");
 const productController = require("../controller/admin/productController");
 const brandController = require("../controller/admin/brandController");
 const orderController = require("../controller/admin/orderController");
+const couponController = require("../controller/admin/couponController");
+const bannerController = require("../controller/admin/bannerController");
 
 admin_route.set("view engine", "ejs");
 admin_route.set("views", "./views/admin");
@@ -21,7 +21,7 @@ admin_route.use(
   session({
     resave: false,
     saveUninitialized: true,
-    secret: config.sessionSecret,
+    secret: process.env.SESSIONSECRET,
   })
 );
 
@@ -97,7 +97,11 @@ admin_route.post(
   multer.uploadProduct.array("image"),
   productController.updateProduct
 );
-admin_route.get("/delete-add_product",  auth.isLogin, productController.listandUnlistProduct);
+admin_route.get(
+  "/delete-add_product",
+  auth.isLogin,
+  productController.listandUnlistProduct
+);
 
 //BRAND
 admin_route.get("/brand", auth.isLogin, brandController.loadBrand);
@@ -115,13 +119,48 @@ admin_route.post(
   multer.uploadProduct.single("image"),
   brandController.updateBrand
 );
-admin_route.get("/listandunlist_brand", auth.isLogin, brandController.unlistBrand);
+admin_route.get(
+  "/listandunlist_brand",
+  auth.isLogin,
+  brandController.unlistBrand
+);
 
 //ORDER
 admin_route.get("/orders", auth.isLogin, orderController.listOrders);
 admin_route.get("/orderDetails", auth.isLogin, orderController.orderDetails);
 admin_route.put("/orderStatus", auth.isLogin, orderController.orderStatus);
 admin_route.get("/salesReport", auth.isLogin, orderController.loadSalesReport);
+
+//COUPON
+admin_route.get("/coupon", auth.isLogin, couponController.loadCouponList);
+admin_route.get("/addCoupon", auth.isLogin, couponController.loadCouponAdd);
+admin_route.post("/addCoupon", auth.isLogin, couponController.addCoupon);
+admin_route.get("/editCoupon", auth.isLogin, couponController.loadEditCoupon);
+admin_route.put("/editCoupon", couponController.editCoupon);
+admin_route.get("/couponUnlist", auth.isLogin, couponController.unlistCoupon);
+admin_route.get("/couponDetails", auth.isLogin, couponController.couponDetails);
+
+//BANNER
+admin_route.get("/banner", auth.isLogin, bannerController.loadBanner);
+admin_route.get("/addBanner", auth.isLogin, bannerController.loadAddBanner);
+admin_route.post(
+  "/addBanner",
+  auth.isLogin,
+  multer.uploadBanner.array("image"),
+  bannerController.addBanner
+);
+admin_route.get("/editBanner/:id", auth.isLogin, bannerController.editBanner);
+admin_route.post(
+  "/editBanner/:id",
+  auth.isLogin,
+  multer.uploadBanner.array("image"),
+  bannerController.updateBanner
+);
+admin_route.get(
+  "/listandunlist_banner",
+  auth.isLogin,
+  bannerController.unlistBanner
+);
 
 //HOME
 admin_route.get("/dashboard", auth.isLogin, adminController.adminDashboard);

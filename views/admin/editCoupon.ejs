@@ -1,0 +1,272 @@
+<%-  include ('../layouts/header.ejs') -%>
+
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="/admin/home" class="brand-wrap">
+                <img src="/static/admin-assets/imgs/theme/logo1.png" class="logo" alt="Admin Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/home"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/product"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/category"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Category</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/brand"> <i class="icon material-icons md-star"></i>
+                        <span class="text">Brand</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/coupon"> <i class="icon material-icons md-local_offer"></i>
+                        <span class="text">Coupon</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/banner"> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Banner</span>
+                    </a>
+                </li>
+                <!-- <li class="menu-item">
+                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Transactions</span>
+                    </a>
+                </li>  -->
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/userManage"> <i class="icon material-icons md-person "></i>
+                        <span class="text">Customers</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" disabled href="/admin/logout"> <i class="icon material-icons md-settings"></i>
+                        <span class="text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/salesReport"> <i class="icon material-icons md-store"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                
+            </div>
+            <div class="btn-toolbar mb-2 mb-md 0">
+                <a href="/admin/home" class="btn btn-primary" style="margin-right: 6px;">Home</a>
+                <a href="/admin/coupon" class="btn btn-primary" style="margin-right: 6px;">Back</a>
+                <a href="/admin/logout" class="btn btn-primary" >Logout</a>
+            </div>
+            <div class="col-nav">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                    </li>
+                    
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/static/admin-assets/imgs/people/avatar2.png" alt="User"></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                            <!-- <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                            <div class="dropdown-divider"></div> -->
+                            <a class="dropdown-item text-danger" href="/admin/logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <form action="" method="post"  id="coupon-form" >
+            <section class="content-main">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="content-header">
+                            <h2 class="content-title">Edit Coupon - <%= coupon.code%></h2>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mb-4">
+                        <a href="/admin/coupon"><button class="btn btn-light rounded font-sm mr-5 text-body hover-up">Save to draft</button></a>
+                        <button type="button" onclick="addCoupon( )"  class="btn btn-md rounded font-sm hover-up">Edit Coupon</button>
+                    </div>
+                    <div class="col-lg-12"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="mb-4">
+                                    <label for="coupon_code" class="form-label">Coupon code</label>
+                                    <input type="text" name="couponCode" value="<%= coupon.code %>" class="form-control" id="coupon_code">
+                                    <div class="error-message" style="color: red;" id="code-error"></div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="discount" class="form-label">Discount</label>
+                                    <input type="number" name="discount" value="<%= coupon.discount %>" class="form-control" id="discount">
+                                    <div class="error-message" style="color: red;" id="discount-error"></div>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="form-group">
+                                        <label  class="form-label mt-3"  for="limit">Limit</label>
+                                        <input type="number" class="form-control" value="<%= coupon.limit %>" id="limit" name="limit" >
+                                        <div class="error-message" style="color: red;" id="limit-error"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- card end// -->
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="col-12 d-flex">
+                                    <div class="mb-4 col-5">
+                                        <div class="form-group">
+                                            <label  class="form-label mt-3"  for="limit">Min  Amount</label>
+                                            <input type="number" class="form-control" value="<%= coupon.minAmt %>" id="minAmt" name="minAmt" >
+                                            <div class="error-message" style="color: red;" id="minAmt-error"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4 col-2"></div>
+                                    <div class="mb-4 col-5">
+                                        <label  class="form-label mt-3"  for="limit">Max  Amount</label>
+                                        <input type="number" class="form-control" value="<%= coupon.maxAmt %>" id="maxAmt" name="maAmt" >
+                                        <div class="error-message" style="color: red;" id="maxAmt-error"></div>
+                                    </div>
+                                </div>
+                            
+                                <!-- Category Div -->
+                            
+                                <div class="mb-2">
+                                    <label for="category_name" class="form-label">Expiry</label>
+                                    <input type="date" name="expiryDate" value="<%= expiry %>" class="form-control" id="expiryDate" min="<%= new Date().toISOString().split('T')[0] %>">
+                                    <div class="error-message" style="color: red;" id="expiryDate-error"></div>
+                                </div>
+                            </div>
+                        </div> <!-- card end// -->
+                    </div>
+                </div>
+                <div id="invalid">
+                    <% if (typeof message !== 'undefined' && message) { %>
+                        <p style="color: red;" id="message"><%= message %></p>
+                    <% } %>
+                </div>  
+                </div> 
+            </section> <!-- content-main end// -->
+        </form>
+
+        <script> 
+            function validationChecking(coupon_code, discount, limit, minAmt, maxAmt, expiryDate) {
+            const code_error = document.getElementById("code-error");
+            const discount_error = document.getElementById("discount-error");
+            const limit_error = document.getElementById("limit-error");
+            const minAmt_error = document.getElementById("minAmt-error");
+            const maxAmt_error = document.getElementById("maxAmt-error");
+            const expiryDate_error = document.getElementById("expiryDate-error");
+        
+            code_error.innerHTML = coupon_code.trim() === "" ? "Please enter coupon code" : "";
+            discount_error.innerHTML =
+            discount.trim() === "" ? "Please enter discount" : /^\d+$/.test(discount) === false ? "Please enter valid discount number" : "";
+            limit_error.innerHTML =
+            limit.trim() === "" ? "Please enter limit" : /^\d+$/.test(limit) === false ? "Please enter valid limit number" : "";
+            minAmt_error.innerHTML =
+            minAmt.trim() === "" ? "Please enter min amount" : /^\d+$/.test(minAmt) === false ? "Please enter valid min amount" : "";
+            maxAmt_error.innerHTML =
+            maxAmt.trim() === "" ? "Please enter max amount" : /^\d+$/.test(maxAmt) === false ? "Please enter valid max amount" : "";
+            expiryDate_error.innerHTML =
+            expiryDate.trim() === "" ? "Please enter expiry date" : "";
+        
+            // Return true if there are errors, false otherwise
+            return (
+            code_error.innerHTML ||
+            discount_error.innerHTML ||
+            limit_error.innerHTML ||
+            minAmt_error.innerHTML ||
+            maxAmt_error.innerHTML ||
+            expiryDate_error.innerHTML
+            );
+        }
+        
+        const addCoupon = () => {
+            const coupon_code = document.getElementById("coupon_code").value;
+            const discount = document.getElementById("discount").value;
+            const limit = document.getElementById("limit").value;
+            const maxAmt = document.getElementById("maxAmt").value;
+            const minAmt = document.getElementById("minAmt").value;
+            const expiryDate = document.getElementById("expiryDate").value;
+        
+            const errors = validationChecking(coupon_code, discount, limit, minAmt, maxAmt, expiryDate);
+        
+            if (!errors) {
+            const requestData = {
+                coupon_code,
+                discount,
+                limit,
+                minAmt,
+                maxAmt,
+                expiryDate
+            };
+        
+            const couponId = "<%= coupon._id %>"; 
+            console.log("CouponId:",couponId);
+            fetch(`/admin/editCoupon?couponId=${couponId}`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            })
+            .then(response => {
+                if (response.ok) {
+                return response.json();
+                } else {
+                throw new Error('Network response was not ok.');
+                }
+            })
+            .then(data => {
+                if (data.success) {
+                window.location.href = '/admin/coupon';
+                } else {
+                alert('Error occurred while adding coupon');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error occurred adding coupon');
+            });
+            }
+        };
+       </script>
+          
+          <%-  include ('../layouts/adminFooter.ejs') -%>

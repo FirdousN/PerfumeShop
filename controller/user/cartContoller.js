@@ -8,6 +8,7 @@ const {
 const loadCart = async (req, res) => {
   try {
     const userId = req.session.user_id;
+    console.log("userID", userId);
     const userData = await User.findById(userId);
     if (userData) {
       const userCart = await Cart.findOne({ user: userId }).populate(
@@ -49,7 +50,7 @@ const loadCart = async (req, res) => {
           cart,
         });
       } else {
-        res.render("cart", { userData, cart: null });
+        res.render("cart", { userData, cart: null, subtotalWithShipping: 0 });
       }
     } else {
       res.redirect("/login");

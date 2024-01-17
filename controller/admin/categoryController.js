@@ -5,19 +5,37 @@ const { deleteAndaddProduct } = require("./adminController");
 const loadCategory = async (req, res) => {
   try {
     const userData = await User.findById({ _id: req.session.admin_id });
-    const categoryData = await Category.find();
-    let search = "";
+    const page = parseInt(req.query.page) || 1;
+    const limit = 6;
+    let categoryData; // Declare categoryData only once
+    let totalCount;
+
     if (req.query.search) {
-      search = req.query.search;
+      const search = req.query.search;
       console.log("search:", search);
-      const categoryData = await Category.find({
+
+      categoryData = await Category.find({
         is_listed: true,
         $or: [{ name: { $regex: new RegExp(search, "i") } }],
       });
-      res.render("category", { category: categoryData });
+
+      totalCount = await Category.countDocuments({
+        is_listed: true,
+        $or: [{ name: { $regex: new RegExp(search, "i") } }],
+      });
     } else {
-      res.render("category", { admin: userData, category: categoryData });
+      categoryData = await Category.find();
+      totalCount = await Category.countDocuments();
     }
+
+    const totalPages = Math.ceil(totalCount / limit);
+
+    res.render("category", {
+      admin: userData,
+      category: categoryData,
+      totalPages,
+      currentPage: page,
+    });
   } catch (error) {
     console.log(error.message);
   }

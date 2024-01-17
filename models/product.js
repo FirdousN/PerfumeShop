@@ -32,15 +32,10 @@ const Product = new mongoose.Schema({
   },
   discount_price: {
     type: Number,
-    required: true,
   },
-  stock: {
-    type: Number,
-    required: true,
-  },
-  size: {
-    type: Number,
-    required: true,
+  sizes: {
+    size: String,
+    stock: Number,
   },
   // gender:{
   //     type: String,
@@ -54,6 +49,13 @@ const Product = new mongoose.Schema({
     type: Date,
     default: Date.now, // Store the current date and time when the product is created
   },
+  discountStatus: {
+    type: Boolean,
+    default: false,
+  },
+  discount: Number,
+  discountStart: Date,
+  discountEnd: Date,
 });
 
 Product.plugin(mongoosePaginate);

@@ -39,18 +39,37 @@ const addBrand = async (req, res) => {
 
 const loadBrand = async (req, res) => {
   try {
-    const brand = await Brand.find();
     let search = "";
+    const page = parseInt(req.query.page) || 1;
+    const limit = 5;
+    let brand; // Declare brand only once
+    let totalCount;
+
     if (req.query.search) {
       search = req.query.search;
       console.log("search:", search);
-      const brandData = await Brand.find({
+
+      brand = await Brand.find({
+        is_listed: true,
+        $or: [{ name: { $regex: new RegExp(search, "i") } }],
+      })
+        .skip((page - 1) * limit)
+        .limit(limit);
+
+      totalCount = await Brand.countDocuments({
         is_listed: true,
         $or: [{ name: { $regex: new RegExp(search, "i") } }],
       });
-      res.render("brand", { brand, message: "" });
+    } else {
+      brand = await Brand.find()
+        .skip((page - 1) * limit)
+        .limit(limit);
+
+      totalCount = await Brand.countDocuments();
     }
-    res.render("brand", { brand, message: "" });
+
+    const totalPages = Math.ceil(totalCount / limit);
+    res.render("brand", { brand, message: "", totalPages, currentPage: page });
   } catch (error) {
     console.log(error.message);
   }

@@ -1,18 +1,19 @@
+require("dotenv").config()
 const express = require("express");
 const session = require("express-session");
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017/user_management_system");
-
-const config = require("./config/config");
-
+const dbConnection = require("./config/dbConnect")
+const userRoute = require("./router/userRoute");
+const adminRoute = require("./router/adminRoute");
 const app = express();
 const path = require("path");
 
 app.use("/static", express.static(path.join(__dirname, "public")));
 
+
+dbConnection()
 app.use(
   session({
-    secret: config.sessionSecret,
+    secret: process.env.SESSIONSECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false },
@@ -28,16 +29,12 @@ app.use((req, res, next) => {
 });
 
 //for user routes
-const userRoute = require("./router/userRoute");
 app.use("/", userRoute);
-
-//for admin routes
-const adminRoute = require("./router/adminRoute");
 app.use("/admin", adminRoute);
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Something went wrong!");
+app.use(( req, res, next) => {
+  res.status(404).render("./layouts/404Error", { userData: null });
+  next()
 });
 
 app.listen(8000, () => {

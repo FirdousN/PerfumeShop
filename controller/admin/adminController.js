@@ -205,6 +205,10 @@ const loadUserManage = async (req, res) => {
   try {
     // const userData = await User.findById({ _id:req.session.admin_id })
     const userManageData = await User.find();
+    const page = parseInt(req.query.page) || 1;
+    const limit = 6;
+    const totalCount = await User.countDocuments();
+    const totalPages = Math.ceil(totalCount / limit);
     let search = "";
     console.log("search:", req.query.search);
 
@@ -219,8 +223,10 @@ const loadUserManage = async (req, res) => {
         { email: { $regex: new RegExp(search, "i") } },
         { mobile: { $regex: new RegExp(search, "i") } },
       ],
-    });
-    res.render("userManage", { users: userData });
+    })
+    .skip((page - 1) * limit)
+    .limit(limit);
+    res.render("userManage", { users: userData ,totalPages, currentPage: page});
 
     // res.render('userManage',{ admin: userData, users: userManageData })
   } catch (error) {
@@ -266,6 +272,7 @@ const blockAndunblockUser = async (req, res) => {
 
 const adminDashboard = async (req, res) => {
   try {
+    
     let search = "";
     console.log("search:", req.query.search);
 
@@ -280,7 +287,8 @@ const adminDashboard = async (req, res) => {
         { email: { $regex: new RegExp(search, "i") } },
         { mobile: { $regex: new RegExp(search, "i") } },
       ],
-    });
+    })
+    
     // const userData = await User.find({ is_admin:0 })
     res.render("dashboard", { users: userData });
   } catch (error) {

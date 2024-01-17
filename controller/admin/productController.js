@@ -9,32 +9,38 @@ const path = require("path");
 const loadProduct = async (req, res) => {
   try {
     const userData = await User.findById({ _id: req.session.admin_id });
-    let productData = await Product.find();
     const categoryData = await Category.find();
     const brands = await Brand.find();
     console.log("brands:", brands);
     let search = "";
     const page = parseInt(req.query.page) || 1;
     const limit = 6;
-    const totalCount = await Product.countDocuments();
-    const totalPages = Math.ceil(totalCount / limit);
+    let productData; // Declare productData only once
+    let totalCount;
+
     if (req.query.search) {
       search = req.query.search;
-      const productData = await Product.find({
+      productData = await Product.find({
         is_listed: true,
         $or: [{ name: { $regex: new RegExp(search, "i") } }],
       })
         .skip((page - 1) * limit)
         .limit(limit);
-      res.render("product", {
-        admin: userData,
-        product: productData,
-        category: categoryData,
-        brand: brands,
-        totalPages,
-        currentPage: page,
+
+      totalCount = await Product.countDocuments({
+        is_listed: true,
+        $or: [{ name: { $regex: new RegExp(search, "i") } }],
       });
+    } else {
+      productData = await Product.find()
+        .skip((page - 1) * limit)
+        .limit(limit);
+
+      totalCount = await Product.countDocuments();
     }
+
+    const totalPages = Math.ceil(totalCount / limit);
+
     res.render("product", {
       admin: userData,
       product: productData,

@@ -9,6 +9,9 @@ const orderSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Address",
   },
+  coupon: {
+    type: String,
+  },
   orderDate: {
     type: Date,
     default: Date.now,
@@ -23,6 +26,14 @@ const orderSchema = new mongoose.Schema({
   totalAmount: {
     type: Number,
     require: true,
+  },
+  paymentMethod: {
+    type: String,
+    require: true,
+  },
+  paymentStatus: {
+    type: String,
+    default: "Pending",
   },
   items: [
     {
@@ -39,14 +50,6 @@ const orderSchema = new mongoose.Schema({
       },
       reason: {
         type: String,
-      },
-      paymentMethod: {
-        type: String,
-        require: true,
-      },
-      paymentStatus: {
-        type: String,
-        default: "Pending",
       },
     },
   ],

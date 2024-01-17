@@ -6,7 +6,10 @@ const Category = require("../../models/category");
 const Brand = require("../../models/brand");
 const Address = require("../../models/address");
 const Order = require("../../models/order");
+const Banner = require("../../models/banner");
+const Wallet = require("../../models/wallet");
 const paginate = require("mongoose-paginate");
+
 const securePassword = async (password) => {
   try {
     const passwordHash = await bcrypt.hash(password, 10);
@@ -230,12 +233,14 @@ const loadHome = async (req, res) => {
     const brandIds = productData.map((product) => product.brand);
     const brands = await Brand.find({ _id: { $in: brandIds } });
     const order = await Order.find();
-
+    const banner = await Banner.find();
+    console.log(banner);
     res.render("home", {
       user: userData,
       products: productData,
       order,
       brands,
+      banner,
     });
   } catch (error) {
     console.log(error.message);
@@ -257,9 +262,12 @@ const loadProfile = async (req, res) => {
     const userData = await User.findById(userId);
     const address = await Address.find();
     const orders = await Order.find();
-    console.log("Order:", orders);
+    const wallet = await Wallet.findOne({ user: userId }).populate({
+      path: "transaction",
+    });
+    console.log("Wallet:", wallet);
     if (userData) {
-      res.render("dashboard", { userData, address, orders });
+      res.render("dashboard", { userData, address, orders, wallet });
     } else {
       res.redirect("/home");
     }
@@ -380,6 +388,31 @@ const product_details = async (req, res) => {
   }
 };
 
+const invoice = async (req, res) => {
+  try {
+    const orderId = req.params.orderId;
+    const userId = req.session.user_id;
+    const user = await User.findById(userId);
+    const order = await Order.findById(orderId)
+      .populate({
+        path: "items.product",
+        model: "Product",
+      })
+      .populate("items")
+      .populate("user")
+      .populate("address");
+    console.log("Order:", order);
+    if (!order) {
+      // Handle the case where the order is not found
+      return res.status(404).send("Order not found");
+    }
+
+    res.render("invoice", { order });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   loadRegister,
   insertUser,
@@ -398,6 +431,7 @@ module.exports = {
   resetPassword,
   shop,
   product_details,
+  invoice,
   // loadShopCategory,
   // loadShopBrand
   // listItems

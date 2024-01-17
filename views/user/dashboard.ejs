@@ -29,7 +29,7 @@
                                 <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="tab-track-order-link" data-toggle="tab" href="#tab-track-order" role="tab" aria-controls="tab-track-order" aria-selected="false">Downloads</a>
+                                <a class="nav-link" id="tab-track-order-link" data-toggle="tab" href="#tab-wallet" role="tab" aria-controls="tab-track-order" aria-selected="false">Wallet</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
@@ -90,34 +90,54 @@
                                 </div>
                             </div><!-- .End .tab-pane -->
 
-                            <div class="tab-pane fade" id="tab-track-order" role="tabpanel" aria-labelledby="tab-track-order">
-                                <div class="card-header">
-                                    <h5 class="mb-0">Orders tracking</h5>
-                                </div>
-                                <div class="card-body contact-from-area">
-                                    <p>To track your order please enter your OrderID in the box below and press "Track" button. This was given to you on your receipt and in the confirmation email you should have received.</p>
+                            <div class="tab-pane fade" id="tab-wallet" role="tabpanel" aria-labelledby="tab-wallet">
+                                <div class="col-md-9">
                                     <div class="row">
-                                        <div class="col-lg-8">
-                                            <form class="contact-form-style mt-30 mb-50" action="#" method="post">
-                                                <div class="input-style mb-20">
-                                                    <label>Order ID</label>
-                                                    <input name="order-id" placeholder="Found in your order confirmation email" type="text" class="form-control">
+                                        <div class="col-md-8 col-lg-10">
+                                            <div class="tab-content d-flex justify-content-center align-items-center">                           
+                                              <div class="card" style="width: 100vw;">
+                                                <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                                                    <i class="fa-solid fa-wallet" style="font-size: 50px;"></i><h3>Wallet Balance</h3>
+                                                    <% if (wallet) {%>          
+                                                        <p style="font-size: 30px;">₹&nbsp; <%= wallet.walletBalance %></p><%
+                                                    } else { %>          
+                                                        <p style="font-size: 30px;">₹&nbsp; 0</p><%
+                                                    } %>
                                                 </div>
-                                                <div class="input-style mb-30">
-                                                    <label>Billing email</label>
-                                                    <input name="billing-email" placeholder="Email you used during checkout" type="email" class="form-control">
-                                                </div>
-                                                <button type="submit" class="btn btn-outline-primary-2">
-                                                    <span>TRACK</span>
-                                                    <i class="icon-long-arrow-right"></i>
-                                                </button>
-                                            </form>
+                                              </div>
+                                            </div>
+                                            <div class="mt-5">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Transaction Type</th>
+                                                            <th scope="col">Date</th>
+                                                            <th scope="col">Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% 
+                                                            if ( wallet && wallet.transaction.length > 0) {
+                                                            wallet.transaction.forEach(transactions => { %>
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="badge badge-pill bg-success"><%= transactions.type %></span>
+                                                                </td>
+                                                                <td><%= new Date(transactions.date).toLocaleDateString() %></td>
+                                                                <td>
+                                                                    <span class=""> <%= transactions.amount %></span>
+                                                                </td>
+                                                            </tr>
+                                                        <% });} %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </div>       
+                                
 
-                            <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+                            <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address">
                                 <p>The following addresses will be used on the checkout page by default.</p><button type="button" class="btn btn-primary mt-3 ml-auto" onclick="redirectToNewAddressPage()">Add New Address</button><br>
                                 <div class="row">
                                     <% address.forEach( address => { %>
@@ -148,7 +168,7 @@
                                     </div><!-- End .col-lg-6 -->
                                 </div><!-- End .row -->
                             </div><!-- .End .tab-pane -->
-                            <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+                            <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account">
                                 <div class="card-header">
                                     <h5 class="mb-0">Account Details</h5>
                                 </div>

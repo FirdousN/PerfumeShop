@@ -38,19 +38,17 @@
                         <span class="text">Brand</span>
                     </a>
                 </li>
-                <!-- <li class="menu-item">
-                    <a class="menu-link" href="page-transactions-1.html"> <i class="icon material-icons md-local_offer"></i>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/coupon"> <i class="icon material-icons md-local_offer"></i>
                         <span class="text">Coupon</span>
                     </a>
-                    
                 </li>
                 <li class="menu-item ">
-                    <a class="menu-link" href="#"> <i class="icon material-icons md-comment"></i>
+                    <a class="menu-link" href="/admin/banner"> <i class="icon material-icons md-comment"></i>
                         <span class="text">Banner</span>
                     </a>
-                  
                 </li>
-                <li class="menu-item">
+                <!-- <li class="menu-item">
                     <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-monetization_on"></i>
                         <span class="text">Transactions</span>
                     </a>
@@ -81,8 +79,7 @@
             <div class="col-search">
                 <form  class="searchform" role="search" >
                     <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" name="search" placeholder="Search ....">
-                        <button class="btn btn-light bg" type="submit"> <i class="material-icons md-search"></i></button>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search for brands...">
                     </div>
                 </form>
             </div>
@@ -190,6 +187,29 @@
                     </div>
                 </div>
             </div>
+            <div class="pagination-area mt-15 mb-50">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <% if (currentPage > 1) { %>
+                            <li class="page-item">
+                              <a class="page-link" href="?page=<%= currentPage - 1 %>"><</a>
+                            </li>
+                          <% } %>
+                      
+                          <% for (let i = 1; i <= totalPages; i++) { %>
+                            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                              <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                            </li>
+                          <% } %>
+                      
+                          <% if (currentPage < totalPages) { %>
+                            <li class="page-item">
+                              <a class="page-link" href="?page=<%= currentPage + 1 %>">></a>
+                            </li>
+                          <% } %>
+                    </ul>
+                </nav>
+            </div>
         </section>
         <footer class="main-footer font-xs">
             <div class="row pb-30 pt-15">
@@ -209,6 +229,25 @@
 
     <script>
         
+        document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const table = document.getElementById("datatablesSimple");
+        const rows = table.getElementsByTagName("tr");
+
+        searchInput.addEventListener("keyup", function () {
+            const searchText = searchInput.value.toLowerCase();
+
+            for (let i = 1; i < rows.length; i++) {
+                const rowData = rows[i].textContent.toLowerCase();
+                if (rowData.includes(searchText)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        });
+    });
+
         function Unlistandlist(BrandId, action) {
                 let titleText, confirmText, successText, url;
                 
