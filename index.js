@@ -1,4 +1,3 @@
-require("dotenv").config()
 const express = require("express");
 const session = require("express-session");
 const dbConnection = require("./config/dbConnect")
@@ -6,11 +5,14 @@ const userRoute = require("./router/userRoute");
 const adminRoute = require("./router/adminRoute");
 const app = express();
 const path = require("path");
+require("dotenv").config()
+
 
 app.use("/static", express.static(path.join(__dirname, "public")));
 
+app.set("view engine", "ejs");
 
-dbConnection()
+// dbConnection()
 app.use(
   session({
     secret: process.env.SESSIONSECRET,
@@ -28,7 +30,6 @@ app.use((req, res, next) => {
   next();
 });
 
-//for user routes
 app.use("/", userRoute);
 app.use("/admin", adminRoute);
 

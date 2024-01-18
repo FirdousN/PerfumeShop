@@ -12,6 +12,10 @@ const bannerSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  slug: {
+    type: String,
+    unique: true 
+  },
   is_listed: {
     type: Boolean,
     default: true,
