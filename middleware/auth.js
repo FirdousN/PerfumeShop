@@ -14,7 +14,7 @@ const isLogin = async (req, res, next) => {
         req.session.user_id = null;
         res.render("login", { message: "You are blocked from this site!" });
       } else {
-        res.redirect("/");
+        res.redirect("/login");
       }
     }
   } catch (error) {

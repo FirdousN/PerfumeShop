@@ -235,6 +235,7 @@ const loadHome = async (req, res) => {
     const order = await Order.find();
     const banner = await Banner.find();
     console.log(banner);
+    if(userData){
     res.render("home", {
       user: userData,
       products: productData,
@@ -242,6 +243,15 @@ const loadHome = async (req, res) => {
       brands,
       banner,
     });
+  }else{
+    res.render("home", {
+      user: null,
+      products: productData,
+      order,
+      brands,
+      banner,
+    });
+  }
   } catch (error) {
     console.log(error.message);
   }
