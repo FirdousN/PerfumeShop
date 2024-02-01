@@ -7,7 +7,6 @@ const app = express();
 const path = require("path");
 require("dotenv").config()
 
-
 app.use("/static", express.static(path.join(__dirname, "public")));
 
 app.set("view engine", "ejs");
