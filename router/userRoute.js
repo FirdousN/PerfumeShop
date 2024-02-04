@@ -60,10 +60,10 @@ user_route.get("/register", auth.isLogout, userController.loadRegister);
 user_route.post("/register", auth.isLogout, userController.insertUser);
 
 //login
-user_route.get("/", auth.isLogout, userController.loginLoad);
+user_route.get("/", userController.loadHome);
 user_route.get("/login", auth.isLogout, userController.loginLoad);
 user_route.post("/login", auth.isLogout, userController.verifyLogin);
-user_route.get("/home", auth.isLogin, userController.loadHome);
+user_route.get("/home", userController.loadHome);
 
 //otp verification
 user_route.get("/verify", auth.isLogout, userController.loadOtp);
@@ -90,11 +90,11 @@ user_route.post("/resetPassword", auth.isLogin, userController.resetPassword);
 user_route.post("/changePassword", auth.isLogin, userController.resetPassword);
 
 //product
-user_route.get("/product", auth.isLogin, userController.product_details);
-user_route.get("/shop", auth.isLogin, userController.shop);
+user_route.get("/product", userController.product_details);
+user_route.get("/shop", userController.shop);
 
 //cart
-user_route.get("/cart", auth.isLogin, cartController.loadCart);
+user_route.get("/cart", cartController.loadCart);
 user_route.post("/cart", auth.isLogin, cartController.addTocart);
 user_route.put("/updateCart", auth.isLogin, cartController.updateCartCount);
 user_route.delete(
@@ -104,7 +104,7 @@ user_route.delete(
 );
 
 //address
-user_route.get("/dashboard", auth.isLogin, userController.loadProfile);
+user_route.get("/dashboard", userController.loadProfile);
 user_route.post("/dashboard", auth.isLogin, userController.updateProfile);
 user_route.get("/address", auth.isLogin, addressController.loadAddress);
 user_route.get("/addAddress", auth.isLogin, addressController.loadaddAddress);
@@ -118,10 +118,10 @@ user_route.get("/coupon", auth.isLogin, couponController.userCouponList);
 user_route.post("/applyCoupon", orderController.applyCoupon);
 
 //order
-user_route.get("/checkout", auth.isLogin, orderController.loadCheckout);
+user_route.get("/checkout", orderController.loadCheckout);
 user_route.post("/checkout", auth.isLogin, orderController.checkOutPost);
 user_route.post("/razorpayOrder", auth.isLogin, orderController.razorpayOrder);
-user_route.get("/order", auth.isLogin, orderController.loadOrderHistory);
+user_route.get("/order", orderController.loadOrderHistory);
 user_route.get(
   "/orderDetails/:id",
   auth.isLogin,

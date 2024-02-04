@@ -1,3 +1,15 @@
+<% if((typeof user !== 'undefined' && user !== null) ){ %>
+    <% } else { %>
+        <div class="header">
+            <ul class="top-menu" style="display: flex; justify-content: flex-end;">
+                <li>
+                    <ul>                        
+                        <li class="rightmost-link"><a href="/login">Sign in / Sign up</a></li>
+                    </ul>
+                </li>
+            </ul><!-- End .top-menu -->
+        </div><!-- End .header-right -->
+        <% } %>    
 <%- include ('../layouts/head.ejs') -%>
 <style>
     .product-image {

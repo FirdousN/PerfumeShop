@@ -24,7 +24,7 @@ const loadCheckout = async (req, res) => {
     const userData = await User.findById(userId);
     console.log("UserId:", userId);
     console.log("UserData:", userData);
-
+    if (userData) {
     const cart = await Cart.findOne({ user: userId })
       .populate({
         path: "items.product",
@@ -57,6 +57,9 @@ const loadCheckout = async (req, res) => {
       subtotalWithShipping,
       coupon,
     });
+  }else{
+    res.redirect('/login')
+  }
   } catch (error) {
     console.error("Error fetching user data and addresses :");
   }
@@ -323,22 +326,26 @@ const loadOrderDetails = async (req, res) => {
 const loadOrderHistory = async (req, res) => {
   try {
     const userId = req.session.user_id;
-    const orderId = req.params.id;
     const userData = await User.findById(userId);
-    const order = await Order.find()
-      .populate("user")
-      .populate({
-        path: "address",
-        model: "Address",
-      })
-      .populate({
-        path: "items.product",
-        model: "Product",
-      })
-      .sort({ orderDate: -1 });
-    console.log("Orderid:", order);
+    if (userData) {
+      const orderId = req.params.id;
+      const order = await Order.find()
+        .populate("user")
+        .populate({
+          path: "address",
+          model: "Address",
+        })
+        .populate({
+          path: "items.product",
+          model: "Product",
+        })
+        .sort({ orderDate: -1 });
+      console.log("Orderid:", order);
 
-    res.render("order", { userData, order });
+      res.render("order", { userData, order });
+    } else {
+      res.redirect('/login')
+    }
   } catch (error) {
     console.log(error.message);
   }

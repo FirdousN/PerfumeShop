@@ -226,7 +226,7 @@ const resetPassword = async (req, res) => {
 
 const loadHome = async (req, res) => {
   try {
-    const userData = await User.findById({ _id: req.session.user_id });
+    const userData = await User.findById(req.session.user_id);
     const productData = await Product.find()
       .populate("category")
       .populate("brand");
@@ -235,23 +235,24 @@ const loadHome = async (req, res) => {
     const order = await Order.find();
     const banner = await Banner.find();
     console.log(banner);
-    if(userData){
-    res.render("home", {
-      user: userData,
-      products: productData,
-      order,
-      brands,
-      banner,
-    });
-  }else{
-    res.render("home", {
-      user: null,
-      products: productData,
-      order,
-      brands,
-      banner,
-    });
-  }
+    if(!req.session.user_id){
+      res.render("home", {
+        user: null,
+        products: productData,
+        order: [],
+        brands,
+        banner,
+      });
+    }else{
+      res.render("home", {
+        user: userData,
+        products: productData,
+        order: null,
+        brands,
+        banner,
+      });
+    }
+  
   } catch (error) {
     console.log(error.message);
   }
@@ -270,16 +271,20 @@ const loadProfile = async (req, res) => {
   try {
     const userId = req.session.user_id;
     const userData = await User.findById(userId);
-    const address = await Address.find();
-    const orders = await Order.find();
-    const wallet = await Wallet.findOne({ user: userId }).populate({
-      path: "transaction",
-    });
-    console.log("Wallet:", wallet);
     if (userData) {
-      res.render("dashboard", { userData, address, orders, wallet });
-    } else {
-      res.redirect("/home");
+      const address = await Address.find();
+      const orders = await Order.find();
+      const wallet = await Wallet.findOne({ user: userId }).populate({
+        path: "transaction",
+      });
+      console.log("Wallet:", wallet);
+      if (userData) {
+        res.render("dashboard", { userData, address, orders, wallet });
+      } else {
+        res.redirect("/home");
+      }
+    }else{
+      res.redirect('/login')
     }
   } catch (error) {
     console.log(error.message);
@@ -361,7 +366,6 @@ const shop = async (req, res) => {
       .limit(limit);
     if (!userData) {
       console.log("User data not found for user ID:", userId);
-      return res.status(404).send("User Not Found");
     }
     res.render("shop", {
       user: userData,
@@ -414,7 +418,7 @@ const invoice = async (req, res) => {
     console.log("Order:", order);
     if (!order) {
       // Handle the case where the order is not found
-      return res.status(404).send("Order not found");
+      return res.status(404).render("404Error");
     }
 
     res.render("invoice", { order });
