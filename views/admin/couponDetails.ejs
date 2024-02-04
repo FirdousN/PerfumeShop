@@ -140,19 +140,16 @@
                 <% } %>
                 <br>
             
-                </div>
-                
-        
-                        
-                        <script>
-                            function saveCouponStatus() {
-                                const dropdown = document.getElementById("orderStatusDropdown");
-                                const selectedStatus = dropdown.options[dropdown.selectedIndex].value;
-                        
-                                // Redirect to the selected route
-                                window.location.href = `/admin/couponStatus?orderId=<%= coupon._id.toString()%>&status=${selectedStatus}&orderDetails=true`;
-                            }
-                        </script>
+                </div>                
+                    <script>
+                        function saveCouponStatus() {
+                            const dropdown = document.getElementById("orderStatusDropdown");
+                            const selectedStatus = dropdown.options[dropdown.selectedIndex].value;
+                    
+                            // Redirect to the selected route
+                            window.location.href = `/admin/couponStatus?orderId=<%= coupon._id.toString()%>&status=${selectedStatus}&orderDetails=true`;
+                        }
+                    </script>
                 </div>
             </header> <!-- card-header end// -->
             <div class="card-body doPdf">
@@ -164,7 +161,12 @@
                             </span>
                             <div class="text">
                                 <h6 class="mb-1">Customer</h6>
-                            
+                                <div class="text">
+                                    <h6 class="mb-1">Customer info</h6>
+                                    <small class="text-muted mt-5">Total Customers: </small><b class=""> 
+                                        <%= coupon.usersUsed.length %>
+                                    </b>
+                                </div>
                             </div>
                         </article>
                     </div> <!-- col// -->
@@ -200,9 +202,7 @@
                                         <tr>
                                             <td>
                                                 <a class="itemside" href="#">
-                                                    <div class="left">
-                                                        <img src="/userImages/<%= user.image %>" width="40" height="40" class="img-xs" alt="Item">
-                                                    </div>
+                                                   
                                                     <div class="info"><%= user.name.slice(0, 50) + '...'  %></div>
                                                 </a>
                                             </td>
