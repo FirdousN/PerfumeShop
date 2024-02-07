@@ -3,7 +3,7 @@
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
             <a href="/admin/home" class="brand-wrap">
-                <img src="/static/admin-assets/imgs/theme/logo1.png" class="logo" alt="Admin Dashboard">
+                <img src="/static/assets/imgs/theme/logo1.png" class="logo" alt="Admin Dashboard">
             </a>
             <div>
                 <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
@@ -101,7 +101,7 @@
                     </li>
                     
                     <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/static/admin-assets/imgs/people/avatar2.png" alt="User"></a>
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/static/assets/imgs/people/avatar2.png" alt="User"></a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
                             <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
                             <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
@@ -210,12 +210,12 @@
                                                             <div class="image-container border-1 mb-4">
                                                                 <input type="checkbox" id="delete-checkbox<%= i%>" name="deletecheckbox" value=" <%= i %>">
                                                                 <label for="delete-checkbox<%= i %>">Delete</label>
-                                                                <img class="image-preview" style="width: 100px; height: 100px; margin-bottom: 20px;" src="/static/admin-assets/imgs/product/<%=product.image[i]%>" alt="Default">
+                                                                <img class="image-preview" style="width: 100px; height: 100px; margin-bottom: 20px;" src="/static/assets/imgs/product/<%=product.image[i]%>" alt="Default">
                                                             </div>
                                                         <% } %>
                                                     <% } else{ %>
                                                         <div class="image-container border-1 mb-4">
-                                                            <img class="image-preview" style="width: 100px; height: 100px; margin-bottom: 20px;" src="/static/admin-assets/imgs/theme/images.jpeg" alt="Default">
+                                                            <img class="image-preview" style="width: 100px; height: 100px; margin-bottom: 20px;" src="/static/assets/imgs/theme/images.jpeg" alt="Default">
                                                         </div>
                                                    <% } %>
                                                     </div>
@@ -251,7 +251,7 @@
                                                         const defaultImagePreview = document.createElement('div');
                                                         defaultImagePreview.classList.add('image-container');
                                                         const defaultImg = document.createElement('img');
-                                                        defaultImg.src = '</static/admin-assets/imgs/theme/images.jpeg>';
+                                                        defaultImg.src = '</static/assets/imgs/theme/images.jpeg>';
                                                         defaultImg.style.width = '100px';
                                                         defaultImg.style.height = '100px';
                                                         defaultImg.style.marginBottom = '20px';

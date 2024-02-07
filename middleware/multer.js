@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 
 const storagecategoryImg = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/admin-assets/imgs/category");
+    cb(null, "public/assets/imgs/category");
   },
   filename: function (req, file, cb) {
     const fileName = Date.now() + path.extname(file.originalname);
@@ -23,7 +23,7 @@ const storagecategoryImg = multer.diskStorage({
 });
 const storeproductImg = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/admin-assets/imgs/product");
+    cb(null, "public/assets/imgs/product");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + uuid.v4();
@@ -33,7 +33,7 @@ const storeproductImg = multer.diskStorage({
 
 const brandstorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/admin-assets/imgs/brand");
+    cb(null, "public/assets/imgs/brand");
   },
   filename: function (req, file, cb) {
     const name = Date.now() + "-" + file.originalname;
@@ -43,7 +43,7 @@ const brandstorage = multer.diskStorage({
 
 const bannerstorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/admin-assets/imgs/banner");
+    cb(null, "public/assets/imgs/banner");
   },
   filename: function (req, file, cb) {
     const name = Date.now() + "-" + file.originalname;

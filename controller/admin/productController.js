@@ -185,7 +185,7 @@ const updateProduct = async (req, res) => {
         const randomInteger = Math.floor(Math.random() * 20000001);
         const imageDirectory = path.join(
           "public",
-          "admin-assets",
+          "assets",
           "imgs",
           "product"
         );

@@ -5,7 +5,7 @@
     <aside class="navbar-aside" id="offcanvas_aside">
         <div class="aside-top">
             <a href="/home" class="brand-wrap">
-                <img src="/static/admin-assets/imgs/theme/logo1.png" class="logo" alt="Admin Dashboard">
+                <img src="/static/assets/imgs/theme/logo1.png" class="logo" alt="Admin Dashboard">
             </a>
             <div>
                 <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
@@ -111,7 +111,7 @@
                     </li>
                     
                     <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/static/admin-assets/imgs/people/avatar2.png" alt="User"></a>
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/static/assets/imgs/people/avatar2.png" alt="User"></a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
                             <!-- <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
                             <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
@@ -223,8 +223,8 @@
                     <div class="card mb-4">
                         <article class="card-body">
                             <h5 class="card-title">Sale statistics</h5>
-                            <input type="hidden" value="<%= monthlyOrderCounts %>" id="monthlySalesArray" />
                             <input type="hidden" value="<%= dailyOrderCounts %>" id="dailyOrderArray" />
+                            <input type="hidden" value="<%= monthlyOrderCounts %>" id="monthlySalesArray" />
                             <input type="hidden" value="<%= yearlyOrderCounts %>" id="yearlyOrderCounts" />
 
                             <button class="btn btn-xs btn btn-sm btn-light font-xs rounded" onclick="displayChart('Weekly', this)">Weekly</button>
@@ -319,78 +319,43 @@
     </main>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
-        console.log('Monthly Sales Array:', document.getElementById('monthlySalesArray').value);
-        console.log('Daily Order Array:', document.getElementById('dailyOrderArray').value);
-        console.log('Yearly Order Counts:', document.getElementById('yearlyOrderCounts').value);
-
-        // Functions to display respective charts
-        function initChart(dataArray, chartType) {
-      const ctx = document.getElementById('myChart').getContext('2d');
-      
-      // Initialize Chart.js instance
-      const myChart = new Chart(ctx, {
-        type: 'bar',  // Change to your desired chart type (bar, line, etc.)
-        data: {
-          labels: dataArray.map(entry => entry.label),
-          datasets: [{
-            label: `Order Count (${chartType})`,
-            data: dataArray.map(entry => entry.count),
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Change to your desired color
-            borderColor: 'rgba(75, 192, 192, 1)',  // Change to your desired color
-            borderWidth: 1,
-          }],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
-
-      return myChart;
-    }
-
-    // Function to update chart data
-    function updateChart(chart, dataArray, chartType) {
-      chart.data.labels = dataArray.map(entry => entry.label);
-      chart.data.datasets[0].label = `Order Count (${chartType})`;
-      chart.data.datasets[0].data = dataArray.map(entry => entry.count);
-      chart.update();  // Refresh the chart
-    }
-
-    // Function to display respective charts
+    
+<script>
+    // Functions to display respective charts
     function displayChart(chartType, button) {
-      highlightButton(button);
-      
-      // Retrieve data based on chartType using your functions
-      let dataArray;
-      if (chartType === 'Weekly') {
-        dataArray = getDailyDataArray();  // Update with your actual function call
-      } else if (chartType === 'Monthly') {
-        dataArray = getMonthlyDataArray();  // Update with your actual function call
-      } else if (chartType === 'Yearly') {
-        dataArray = getYearlyDataArray();  // Update with your actual function call
-      }
-
-      // Check if the chart is already initialized
-      if (!window.myChart) {
-        // Initialize the chart if not already initialized
-        window.myChart = initChart(dataArray, chartType);
-      } else {
-        // Update the existing chart with new data
-        updateChart(window.myChart, dataArray, chartType);
-      }
+    highlightButton(button);
+  
+    if (chartType === 'Weekly') {
+        showChart('myChartWeekly');
+        hideChart('myChartMonthly');
+        hideChart('myChartYearly');
+    } else if (chartType === 'Monthly') {
+        hideChart('myChartWeekly');
+        showChart('myChartMonthly');
+        hideChart('myChartYearly');
+    } else if (chartType === 'Yearly') {
+        hideChart('myChartWeekly');
+        hideChart('myChartMonthly');
+        showChart('myChartYearly');
     }
-
-    // Function to highlight the selected button
-    function highlightButton(button) {
-      const buttons = document.querySelectorAll('.btn');
-      buttons.forEach(btn => btn.classList.remove('btn-xs'));
-      button.classList.add('btn-xs');
-    }
-    </script>  
-
+  }
+  
+  function showChart(chartId) {
+    document.getElementById(chartId).style.display = 'block';
+  }
+  
+  function hideChart(chartId) {
+    document.getElementById(chartId).style.display = 'none';
+  }
+  
+  function highlightButton(button) {
+  
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(btn => btn.classList.remove('btn-xs'));
+  
+    button.classList.add('btn-xs');
+  }
+  
+  
+  </script>
     <%-  include ('../layouts/adminFooter.ejs') -%>
