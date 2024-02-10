@@ -105,33 +105,38 @@ const editCategory = async (req, res) => {
 
 const updateCategory = async (req, res) => {
   try {
-    if (!req.file) {
-      const categoryData = await Category.findByIdAndUpdate(
-        { _id: req.body.id },
-        {
-          $set: {
-            name: req.body.name,
-            description: req.body.description,
-          },
-        }
-      );
+    const existingCategory = await Category.findOne({ name: req.body.name, _id: { $ne: req.body.id } });
+    if (existingCategory) {
+      // Category with the same name already exists (excluding the current category being edited)
+      const userData = await User.findById({ _id: req.session.admin_id });
+      const categoryData = await Category.findById({ _id: req.body.id });
+      res.render("edit-category", {
+        admin: userData,
+        category: categoryData,
+        errorMessage: "A category with this name already exists!",
+      });
     } else {
+      // No existing category with the same name, proceed with updating the category
+      let updateFields = {
+        name: req.body.name,
+        description: req.body.description,
+      };
+      if (req.file) {
+        updateFields.image = req.file.filename;
+      }
       const categoryData = await Category.findByIdAndUpdate(
         { _id: req.body.id },
-        {
-          $set: {
-            name: req.body.name,
-            image: req.file.filename,
-            description: req.body.description,
-          },
-        }
+        { $set: updateFields },
+        { new: true } // To return the updated document
       );
+      res.redirect("/admin/category");
     }
-    res.redirect("/admin/category");
   } catch (error) {
     console.log(error.message);
+    res.redirect("/admin/category"); // Redirect to category page in case of error
   }
 };
+
 
 const deleteAndaddCategory = async (req, res) => {
   try {

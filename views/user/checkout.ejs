@@ -250,8 +250,6 @@ span {
 
         const couponCode = couponCodeInput.value
         
-        
-
         applyCouponButton.addEventListener('click', async function (event){
             event.preventDefault()
             const couponCode = couponCodeInput.value.trim()
@@ -333,7 +331,6 @@ span {
                 
             };
             console.log("requestData:",requestData);
-
                 console.log(couponCode);
             if ( selectedPaymentMethod === "CashOnDelivery" ){
                 console.log(".............");
@@ -450,7 +447,7 @@ span {
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Error occurred while placing orderewew');
+                    alert('Error occurred while placing order');
                 });
             }
             else if(selectedPaymentMethod === "Wallet"){

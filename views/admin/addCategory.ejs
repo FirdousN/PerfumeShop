@@ -125,9 +125,9 @@
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <%
-                                        if(typeof message !=='undefined'){
+                                        if(typeof errorMessage !=='undefined'){
                                         %>
-                                        <b> <h5> <%= message %> </h5></b>
+                                        <b> <h5> <%= errorMessage %> </h5></b>
                                         <%
                                     }
                                     %>
@@ -265,6 +265,8 @@
                 checkCategoryUniqueness(catgeory_name, function(isUnique){
                     if(!isUnique){
                         category_name_error.innerHTML = "Category name must be unique"
+                    } else {
+                        category_name_error.innerHTML = ""; // Clear error message if category name is unique
                     }
                 })
             }

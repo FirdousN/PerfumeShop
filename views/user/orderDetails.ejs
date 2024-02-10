@@ -51,12 +51,12 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th width="40%">Product</th>
+                                                <th width="20%">Product</th>
                                                 <th width="20%">Unit Price</th>
                                                 <th width="20%">Quantity</th>
                                                 <th width="20%">Total</th>
                                                 <th width="20%" >Status</th>
-                                                <th width="20%" >Payment</th>
+                                                <th width="20%" >Coupon</th>
                                                 <th width="20%" class="text-center">Action</th>
                                             </tr>
                                         </thead>
@@ -83,11 +83,8 @@
                                                 <td>₹<%= item.product.price %></td>
                                                 <td><%= item.quantity %></td>
                                                 <td class="text-end">₹<%= total %></td>
-                                                <td class="text-end">
-                                                    <%=item.status%>
-                                                    
-                                                </td>
-                                                <td class="text-end"><%= item.paymentMethod %></td>
+                                                <td class="text-end"><%=item.status%></td>
+                                                <td class="text-end"><%= order.coupon %></td>
 
                                                 <td class="text-end">
                                                     <% if(item.status == "Confirmed" ){ %>
@@ -130,7 +127,7 @@
                                                         <div class="card-body">
                                                             <dl class="dlist">
                                                                 <dt>Subtotal:</dt>
-                                                                <dd>₹<%= subtotal %></dd>
+                                                                <dd>₹<%= order.totalAmount %></dd>
                                                             </dl>
                                                             <dl class="dlist">
                                                                 <dt>Shipping cost:</dt>
@@ -138,7 +135,7 @@
                                                             </dl>
                                                             <dl class="dlist">
                                                                 <dt>Grand total:</dt>
-                                                                <dd><b class="h5">₹<%= subtotal %></b></dd>
+                                                                <dd><b class="h5">₹<%= order.totalAmount %></b></dd>
                                                             </dl>
                                                             <dl class="dlist">
                                                                 <dt class="text-muted">Status:</dt>

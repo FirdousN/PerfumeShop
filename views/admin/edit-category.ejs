@@ -119,16 +119,25 @@
                 <div>
                     <h2 class="content-title card-title">Category Management</h2>
                 </div>
+            
                 <form action="/admin/edit-category" method="post" enctype="multipart/form-data" id="category-form" onsubmit="return validateCategory()">
                     <section class="content-main">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
-                                        <h4>Basic</h4>
+                                        <%
+                                        if(typeof errorMessage !=='undefined'){
+                                        %>
+                                        <b> <h5 style="color: crimson;"> <%= errorMessage %> </h5></b>
+                                        <%
+                                        }
+                                        %>
+                                        <h4>Edit Category</h4>
                                     </div>
                                     <input type="hidden" name="id" value="<%= category._id %>">
                                     <div class="card-body">
+                                        
                                         <div class="mb-4">
                                             <label for="category_name" class="form-label">Editing: <%= category.name %></label>
                                             <input type="text" name="name" placeholder="Type here" value="<%= category.name %>" class="form-control" id="category_name">
@@ -169,15 +178,7 @@
                         </div>
                     </section> <!-- content-main end// -->
                 </form>
-                <div style="position: relative; width: 100%;" class="justify-content-center text-center">
-                    <% 
-                    if (typeof errorMessage !== 'undefined') {
-                    %>
-                    <p style="position: absolute; transform: translate(-50%, -50%); left: 50%; color: crimson; white-space: nowrap;"><%= message %></p>
-                    <%
-                    }
-                    %>
-                </div>
+
             </div>
         </section>
     </main>

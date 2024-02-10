@@ -90,12 +90,12 @@ const razorpayOrder = async (req, res) => {
     const cartItems = cart.items || [];
     let totalAmount = 0;
     totalAmount = cartItems.reduce(
-      (acc, item) => acc + (item.product.discountPrice * item.quantity || 0),
+      (acc, item) => acc + (item.product.price * item.quantity || 0),
       0
     );
     totalAmount = cartItems.reduce((acc, item) => {
       if (
-        item.product.discountPrice &&
+        item.product.price &&
         item.product.discountStatus &&
         new Date(item.product.discountStart) <= new Date() &&
         new Date(item.product.discountEnd) >= new Date()
@@ -242,11 +242,11 @@ const checkOutPost = async (req, res) => {
           quantity: cartItem.quantity,
           // size: cartItem.size,
           price:
-            cartItem.product.discountPrice &&
+            cartItem.product.price &&
             cartItem.product.discountStatus &&
             new Date(cartItem.product.discountStart) <= new Date() &&
             new Date(cartItem.product.discountEnd) >= new Date()
-              ? cartItem.product.discountPrice
+              ? cartItem.product.price
               : cartItem.product.price,
           status: "Confirmed",
           paymentMethod: "Online Payment",
@@ -269,11 +269,11 @@ const checkOutPost = async (req, res) => {
           // size: cartItem.size,
 
           price:
-            cartItem.product.discountPrice &&
+            cartItem.product.paymentStatusrice &&
             cartItem.product.discountStatus &&
             new Date(cartItem.product.discountStart) <= new Date() &&
             new Date(cartItem.product.discountEnd) >= new Date()
-              ? cartItem.product.discountPrice
+              ? cartItem.product.price
               : cartItem.product.price,
           status: "Confirmed",
           paymentMethod: paymentMethod,
@@ -288,7 +288,6 @@ const checkOutPost = async (req, res) => {
     cart.totalAmount = 0; // Resetting totalAmount
 
     await cart.save(); // Save the updated cart
-
     res
       .status(200)
       .json({ success: true, message: "Order placed successfully" });

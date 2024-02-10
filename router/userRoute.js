@@ -73,21 +73,18 @@ user_route.get("/resendotp", auth.isLogout, userController.resendOtp);
 //forgotpassword
 user_route.get(
   "/forgotPassword",
-  auth.isLogout,
   userController.loadForgotPassword
 );
 user_route.post(
   "/forgotPassword",
-  auth.isLogin,
   userController.forgotPasswordOTP
 );
 user_route.get(
   "/resetPassword",
-  auth.isLogin,
   userController.loadResetPassword
 );
-user_route.post("/resetPassword", auth.isLogin, userController.resetPassword);
-user_route.post("/changePassword", auth.isLogin, userController.resetPassword);
+user_route.post("/resetPassword", userController.resetPassword);
+user_route.post("/changePassword", userController.resetPassword);
 
 //product
 user_route.get("/product", userController.product_details);
